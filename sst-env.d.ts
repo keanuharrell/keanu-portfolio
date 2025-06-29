@@ -10,6 +10,14 @@ declare module "sst" {
       "type": "sst.aws.Function"
       "url": string
     }
+    "ApiRouter": {
+      "type": "sst.aws.Router"
+      "url": string
+    }
+    "DynamoTable": {
+      "name": string
+      "type": "sst.aws.Dynamo"
+    }
   }
 }
 /// <reference path="sst-env.d.ts" />

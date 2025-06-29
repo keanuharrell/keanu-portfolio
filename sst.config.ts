@@ -1,5 +1,4 @@
 /// <reference path="./.sst/platform/config.d.ts" />
-
 export default $config({
   app(input) {
     return {
@@ -11,17 +10,18 @@ export default $config({
         aws: {
           profile: "sst",
         },
-      }
+        cloudflare: {
+          apiToken: process.env.CLOUDFLARE_API_TOKEN,
+          version: "6.3.1",
+        },
+      },
     };
   },
   async run() {
-    $transform(sst.aws.Function, (input) => {
-      input.runtime = "nodejs22.x";
-    });
-    // await import("./infra/dns");
-    // await import("./infra/stage");
-    // await import("./infra/postgres");
+    await import("./infra/dns");
+    await import("./infra/stage");
     await import("./infra/api");
+    await import("./infra/dynamo");
     // await import("./infra/secret");
     // await import("./infra/auth");
     // await import("./infra/network");
