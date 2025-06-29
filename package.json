@@ -1,0 +1,36 @@
+{
+  "name": "keanu-portfolio",
+  "version": "0.0.1",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "packageManager": "bun@1.2.17",
+  "workspaces": [
+    "packages/*",
+    "apps/*"
+  ],
+  "scripts": {
+    "env": "env",
+    "prepare": "git config --local core.hooksPath .githooks",
+    "dev": "sst dev",
+    "build": "sst build",
+    "deploy": "sst deploy",
+    "remove": "sst remove",
+    "typecheck": "turbo typecheck",
+    "lint": "turbo lint",
+    "test": "turbo test"
+  },
+  "devDependencies": {
+    "@tsconfig/node22": "^22.0.2",
+    "@types/aws-lambda": "8.10.150",
+    "@types/bun": "^1.2.17",
+    "prettier": "^3.6.2",
+    "turbo": "^1.10.0",
+    "typescript": "^5.8.3"
+  },
+  "dependencies": {
+    "sst": "3.17.8"
+  }
+}
