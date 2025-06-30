@@ -22,6 +22,7 @@ export default $config({
     await import("./infra/stage");
     await import("./infra/api");
     await import("./infra/dynamo");
+    await import("./infra/portfolio");
     // await import("./infra/secret");
     // await import("./infra/auth");
     // await import("./infra/network");
