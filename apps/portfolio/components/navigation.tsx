@@ -5,51 +5,76 @@ import { Button } from "@/components/ui/button"
 import { ThemeToggle } from "@/components/theme-toggle"
 import { Menu, X } from "lucide-react"
 import { useState, useEffect } from "react"
+import Link from "next/link"
+import { usePathname } from "next/navigation"
 
 const navigationItems = [
-  { name: "Home", href: "#home" },
-  { name: "About", href: "#about" },
-  { name: "Projects", href: "#projects" },
-  { name: "Skills", href: "#skills" },
-  { name: "Architecture", href: "#architecture" },
-  { name: "Contact", href: "#contact" }
+  { name: "Home", href: "/" },
+  { name: "About", href: "/#about" },
+  { name: "Projects", href: "/#projects" },
+  { name: "Skills", href: "/#skills" },
+  { name: "Infrastructure", href: "/infrastructure" },
+  { name: "Terminal", href: "/terminal" },
+  { name: "Contact", href: "/#contact" }
 ]
 
 export function Navigation() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const [activeSection, setActiveSection] = useState("home")
   const [isScrolled, setIsScrolled] = useState(false)
+  const pathname = usePathname()
 
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 50)
       
-      // Update active section based on scroll position
-      const sections = navigationItems.map(item => item.href.substring(1))
-      const current = sections.find(section => {
-        const element = document.getElementById(section)
-        if (element) {
-          const rect = element.getBoundingClientRect()
-          return rect.top <= 150 && rect.bottom >= 150
+      // Update active section based on scroll position (only for home page)
+      if (pathname === '/') {
+        const sections = navigationItems
+          .filter(item => item.href.startsWith('/#'))
+          .map(item => item.href.substring(2))
+        const current = sections.find(section => {
+          const element = document.getElementById(section)
+          if (element) {
+            const rect = element.getBoundingClientRect()
+            return rect.top <= 150 && rect.bottom >= 150
+          }
+          return false
+        })
+        
+        if (current) {
+          setActiveSection(current)
         }
-        return false
-      })
-      
-      if (current) {
-        setActiveSection(current)
       }
     }
 
     window.addEventListener("scroll", handleScroll)
     return () => window.removeEventListener("scroll", handleScroll)
-  }, [])
+  }, [pathname])
+
+  const handleNavigation = (href: string) => {
+    setIsMobileMenuOpen(false)
+    
+    // Handle anchor links on same page
+    if (href.startsWith('/#')) {
+      const element = document.getElementById(href.substring(2))
+      if (element) {
+        element.scrollIntoView({ behavior: "smooth" })
+      }
+    }
+  }
 
   const scrollToSection = (href: string) => {
-    const element = document.getElementById(href.substring(1))
+    const element = document.getElementById(href.substring(2))
     if (element) {
       element.scrollIntoView({ behavior: "smooth" })
     }
-    setIsMobileMenuOpen(false)
+  }
+
+  const isActiveLink = (href: string) => {
+    if (href === '/') return pathname === '/'
+    if (href.startsWith('/#')) return pathname === '/' && activeSection === href.substring(2)
+    return pathname === href
   }
 
   return (
@@ -72,12 +97,12 @@ export function Navigation() {
             transition={{ duration: 0.8, delay: 0.2 }}
             className="flex items-center"
           >
-            <button
-              onClick={() => scrollToSection("#home")}
+            <Link
+              href="/"
               className="text-xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent hover:scale-105 transition-transform"
             >
               KH
-            </button>
+            </Link>
           </motion.div>
 
           {/* Desktop Navigation */}
@@ -88,20 +113,24 @@ export function Navigation() {
             className="hidden md:flex items-center space-x-1"
           >
             {navigationItems.map((item, index) => (
-              <motion.button
+              <motion.div
                 key={item.name}
                 initial={{ opacity: 0, y: -20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.4 + index * 0.1 }}
-                onClick={() => scrollToSection(item.href)}
-                className={`px-3 py-2 rounded-md text-sm font-medium transition-colors ${
-                  activeSection === item.href.substring(1)
-                    ? "text-primary bg-primary/10"
-                    : "text-muted-foreground hover:text-foreground hover:bg-muted/50"
-                }`}
               >
-                {item.name}
-              </motion.button>
+                <Link
+                  href={item.href}
+                  onClick={() => handleNavigation(item.href)}
+                  className={`px-3 py-2 rounded-md text-sm font-medium transition-colors ${
+                    isActiveLink(item.href)
+                      ? "text-primary bg-primary/10"
+                      : "text-muted-foreground hover:text-foreground hover:bg-muted/50"
+                  }`}
+                >
+                  {item.name}
+                </Link>
+              </motion.div>
             ))}
           </motion.div>
 
@@ -116,7 +145,7 @@ export function Navigation() {
             <Button
               variant="outline"
               size="sm"
-              onClick={() => scrollToSection("#contact")}
+              onClick={() => scrollToSection("/#contact")}
               className="hidden sm:inline-flex"
             >
               Hire Me
@@ -149,23 +178,24 @@ export function Navigation() {
           >
             <div className="py-4 space-y-2">
               {navigationItems.map((item) => (
-                <button
+                <Link
                   key={item.name}
-                  onClick={() => scrollToSection(item.href)}
+                  href={item.href}
+                  onClick={() => handleNavigation(item.href)}
                   className={`block w-full text-left px-4 py-2 rounded-md text-sm font-medium transition-colors ${
-                    activeSection === item.href.substring(1)
+                    isActiveLink(item.href)
                       ? "text-primary bg-primary/10"
                       : "text-muted-foreground hover:text-foreground hover:bg-muted/50"
                   }`}
                 >
                   {item.name}
-                </button>
+                </Link>
               ))}
               <div className="px-4 pt-2">
                 <Button
                   variant="outline"
                   size="sm"
-                  onClick={() => scrollToSection("#contact")}
+                  onClick={() => scrollToSection("/#contact")}
                   className="w-full"
                 >
                   Hire Me

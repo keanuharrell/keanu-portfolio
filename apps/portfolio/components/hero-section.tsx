@@ -21,36 +21,6 @@ export function HeroSection() {
     <section className="min-h-screen flex items-center justify-center relative overflow-hidden">
       {/* Background gradient */}
       <div className="absolute inset-0 bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 dark:from-blue-950/20 dark:via-indigo-950/20 dark:to-purple-950/20" />
-      
-      {/* Animated background elements */}
-      <motion.div 
-        className="absolute inset-0 opacity-30"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 0.3 }}
-        transition={{ duration: 2 }}
-      >
-        {[...Array(6)].map((_, i) => (
-          <motion.div
-            key={i}
-            className="absolute w-2 h-2 bg-blue-500 rounded-full"
-            initial={{ 
-              x: Math.random() * 1000,
-              y: Math.random() * 1000,
-              opacity: 0 
-            }}
-            animate={{ 
-              x: Math.random() * 1000,
-              y: Math.random() * 1000,
-              opacity: [0, 1, 0] 
-            }}
-            transition={{ 
-              duration: Math.random() * 10 + 10,
-              repeat: Infinity,
-              repeatType: "loop"
-            }}
-          />
-        ))}
-      </motion.div>
 
       <div className="container mx-auto px-4 py-20 relative z-10">
         <div className="max-w-4xl mx-auto text-center">
