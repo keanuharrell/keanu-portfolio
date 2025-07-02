@@ -283,7 +283,7 @@ export function DevOpsCommandCenter() {
             <div className="space-y-4">
               <Badge className="bg-blue-600/20 text-blue-400 border-blue-600/30">
                 <Server className="w-3 h-3 mr-1" />
-                Infrastructure Engineer
+                Full Stack Engineer
               </Badge>
               
               <h1 className="text-4xl md:text-6xl font-bold text-white leading-tight">
@@ -293,12 +293,12 @@ export function DevOpsCommandCenter() {
               </h1>
               
               <h2 className="text-xl md:text-2xl text-gray-300 font-medium">
-                DevOps Engineer & Cloud Architect
+                Full Stack Engineer | Cloud & Platform Engineer
               </h2>
               
               <p className="text-lg text-gray-400 max-w-lg leading-relaxed">
-                Building and scaling cloud infrastructure that powers modern applications. 
-                Specialized in AWS, Kubernetes, and infrastructure automation.
+                <strong>3+ years</strong> designing and shipping cloud-native microservices on AWS and scalable data platforms. 
+                Expert in React/TypeScript, Golang/C#, CI/CD and observability.
               </p>
             </div>
 

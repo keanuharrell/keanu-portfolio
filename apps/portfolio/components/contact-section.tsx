@@ -24,20 +24,26 @@ const contactInfo = [
   {
     icon: Mail,
     title: "Email",
-    details: "keanu@example.com",
-    href: "mailto:keanu@example.com"
+    details: "keanuharrell@icloud.com",
+    href: "mailto:keanuharrell@icloud.com"
   },
   {
     icon: Phone,
-    title: "Phone",
-    details: "+33 6 12 34 56 78",
-    href: "tel:+33612345678"
+    title: "Phone (FR)",
+    details: "+33 6 95 09 83 51",
+    href: "tel:+33695098351"
+  },
+  {
+    icon: Phone,
+    title: "Phone (PL)",
+    details: "+48 572 263 316",
+    href: "tel:+48572263316"
   },
   {
     icon: MapPin,
     title: "Location",
-    details: "Paris, France",
-    href: "https://maps.google.com/?q=Paris,France"
+    details: "Nancy, France | Warszawa, Poland",
+    href: "https://maps.google.com/?q=Nancy,France"
   },
   {
     icon: Clock,
@@ -75,11 +81,11 @@ const socialLinks = [
 ]
 
 const projectTypes = [
-  "Infrastructure Design",
-  "Cloud Migration",
-  "DevOps Consulting",
-  "iOS App Development",
-  "Monitoring Setup",
+  "Full Stack Development",
+  "Cloud Architecture",
+  "DevOps & CI/CD",
+  "Data Platform Design",
+  "API Development",
   "Team Training",
   "Other"
 ]
@@ -137,7 +143,7 @@ export function ContactSection() {
         >
           <h2 className="text-3xl md:text-4xl font-bold mb-4">Let&apos;s Work Together</h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Ready to scale your infrastructure or build your next iOS app? Let&apos;s discuss how I can help bring your project to life.
+            Ready to build your next application or modernize your cloud infrastructure? Let&apos;s discuss how I can help bring your project to life.
           </p>
         </motion.div>
 
@@ -374,10 +380,10 @@ export function ContactSection() {
                   <span className="text-sm font-medium">Available for new projects</span>
                 </div>
                 <div className="space-y-2 text-sm text-muted-foreground">
-                  <p>✅ Infrastructure consulting</p>
-                  <p>✅ iOS development projects</p>
-                  <p>✅ DevOps team training</p>
-                  <p>⏰ Long-term partnerships (Q2 2024)</p>
+                  <p>✅ Full-stack development</p>
+                  <p>✅ Cloud & platform engineering</p>
+                  <p>✅ DevOps consulting & training</p>
+                  <p>⏰ Long-term partnerships (Q2 2025)</p>
                 </div>
                 <div className="mt-4">
                   <Badge variant="secondary" className="text-xs">

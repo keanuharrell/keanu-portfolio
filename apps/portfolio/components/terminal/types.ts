@@ -5,6 +5,22 @@ export interface Command {
   category: 'system' | 'portfolio' | 'social' | 'navigation'
 }
 
+export interface ParsedCommand {
+  command: string
+  args: string[]
+  flags: Record<string, string | boolean>
+  rawInput: string
+}
+
+export interface CommandHandler {
+  name: string
+  description: string
+  category: 'system' | 'portfolio' | 'social' | 'navigation'
+  handler: (parsed: ParsedCommand) => Promise<string[]>
+  usage?: string
+  examples?: string[]
+}
+
 export interface TerminalLine {
   id: number
   type: 'command' | 'output' | 'ascii' | 'prompt'

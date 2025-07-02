@@ -15,14 +15,14 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Keanu Harrell - DevOps Engineer & Cloud Architect",
-  description: "Portfolio of Keanu Harrell - DevOps Engineer specializing in cloud infrastructure, SRE, automation, and scalable systems. Explore interactive monitoring dashboards and live infrastructure.",
-  keywords: ["DevOps", "Cloud Architecture", "SRE", "AWS", "Kubernetes", "Infrastructure", "Terraform", "Docker", "Monitoring", "Analytics"],
+  title: "Keanu Harrell - Full Stack Engineer | Cloud & Platform Engineer",
+  description: "Portfolio of Keanu Harrell - Full Stack Engineer with 3+ years designing cloud-native microservices and scalable data platforms. Expert in React/TypeScript, Golang/C#, AWS, and CI/CD.",
+  keywords: ["Full Stack", "Cloud Engineering", "React", "TypeScript", "Golang", "AWS", "Microservices", "Data Platforms", "CI/CD", "DevOps"],
   authors: [{ name: "Keanu Harrell" }],
   creator: "Keanu Harrell",
   openGraph: {
-    title: "Keanu Harrell - DevOps Engineer & Cloud Architect",
-    description: "Explore my live infrastructure, monitoring dashboards, and DevOps expertise through an interactive portfolio experience.",
+    title: "Keanu Harrell - Full Stack Engineer | Cloud & Platform Engineer",
+    description: "Explore my portfolio showcasing cloud-native applications, microservices architecture, and full-stack development expertise.",
     type: "website",
     locale: "en_US",
     url: "https://keanuharrell.dev",
@@ -30,8 +30,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Keanu Harrell - DevOps Engineer & Cloud Architect",
-    description: "Interactive DevOps portfolio with live infrastructure monitoring",
+    title: "Keanu Harrell - Full Stack Engineer | Cloud & Platform Engineer",
+    description: "Interactive portfolio with terminal interface showcasing technical projects and expertise",
   },
 };
 

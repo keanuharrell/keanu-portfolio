@@ -32,67 +32,81 @@ export function QuickCommands({ commands, onCommandClick, isTyping }: QuickComma
       animate={{ opacity: 1, x: 0 }}
       transition={{ duration: 0.8, delay: 0.2 }}
       className="space-y-4 flex flex-col min-h-0 overflow-y-auto"
+      role="complementary"
+      aria-label="Quick commands and system information"
     >
       <Card className="bg-gray-900/80 border-green-500/30 flex-shrink-0">
         <CardHeader className="pb-3">
           <CardTitle className="text-green-400 flex items-center gap-2 font-mono text-sm">
-            <Code className="h-4 w-4" />
+            <Code className="h-4 w-4" aria-hidden="true" />
             Quick Commands
           </CardTitle>
         </CardHeader>
         <CardContent className="space-y-2">
-          {commands.map((cmd, index) => (
-            <motion.div
-              key={index}
-              initial={{ opacity: 0, x: 10 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.5, delay: 0.3 + index * 0.1 }}
-            >
-              <Button
-                variant="ghost"
-                size="sm"
-                onClick={() => onCommandClick(cmd)}
-                disabled={isTyping}
-                className="w-full justify-start text-left h-auto p-2 hover:bg-green-500/10 font-mono"
+          <div role="list" aria-label="Available quick commands">
+            {commands.map((cmd, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, x: 10 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.5, delay: 0.3 + index * 0.1 }}
+                role="listitem"
               >
-                <div className="space-y-1 w-full">
-                  <div className="flex items-center justify-between">
-                    <code className="text-xs text-green-400">
-                      {cmd.command}
-                    </code>
-                    <Badge variant="outline" className={categoryColors[cmd.category]}>
-                      {cmd.category}
-                    </Badge>
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={() => onCommandClick(cmd)}
+                  disabled={isTyping}
+                  className="w-full justify-start text-left h-auto p-2 hover:bg-green-500/10 font-mono"
+                  aria-label={`Execute command: ${cmd.command}. ${cmd.description}`}
+                  aria-describedby={`cmd-desc-${index}`}
+                >
+                  <div className="space-y-1 w-full">
+                    <div className="flex items-center justify-between">
+                      <code className="text-xs text-green-400" aria-label="Command">
+                        {cmd.command}
+                      </code>
+                      <Badge 
+                        variant="outline" 
+                        className={categoryColors[cmd.category]}
+                        aria-label={`Category: ${cmd.category}`}
+                      >
+                        {cmd.category}
+                      </Badge>
+                    </div>
+                    <p 
+                      id={`cmd-desc-${index}`}
+                      className="text-xs text-gray-400 text-left"
+                    >
+                      {cmd.description}
+                    </p>
                   </div>
-                  <p className="text-xs text-gray-400 text-left">
-                    {cmd.description}
-                  </p>
-                </div>
-              </Button>
-            </motion.div>
-          ))}
+                </Button>
+              </motion.div>
+            ))}
+          </div>
         </CardContent>
       </Card>
 
       <Card className="bg-gray-900/80 border-blue-500/30 flex-shrink-0">
         <CardHeader className="pb-3">
           <CardTitle className="text-blue-400 flex items-center gap-2 font-mono text-sm">
-            <User className="h-4 w-4" />
+            <User className="h-4 w-4" aria-hidden="true" />
             System Info
           </CardTitle>
         </CardHeader>
-        <CardContent className="space-y-2 text-xs font-mono">
-          <div className="text-gray-300">
-            <span className="text-blue-400">OS:</span> Portfolio Linux
+        <CardContent className="space-y-2 text-xs font-mono" role="region" aria-label="System information">
+          <div className="text-gray-300" role="definition">
+            <span className="text-blue-400" aria-label="Operating System">OS:</span> Portfolio Linux
           </div>
-          <div className="text-gray-300">
-            <span className="text-blue-400">Shell:</span> /bin/bash
+          <div className="text-gray-300" role="definition">
+            <span className="text-blue-400" aria-label="Shell">Shell:</span> /bin/bash
           </div>
-          <div className="text-gray-300">
-            <span className="text-blue-400">Uptime:</span> 5+ years
+          <div className="text-gray-300" role="definition">
+            <span className="text-blue-400" aria-label="System uptime">Uptime:</span> 5+ years
           </div>
-          <div className="text-gray-300">
-            <span className="text-blue-400">Memory:</span> Unlimited ideas
+          <div className="text-gray-300" role="definition">
+            <span className="text-blue-400" aria-label="Available memory">Memory:</span> Unlimited ideas
           </div>
         </CardContent>
       </Card>

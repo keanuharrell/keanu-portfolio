@@ -10,12 +10,13 @@ export const portfolioCommands: Record<string, CommandHandler> = {
     handler: async () => {
       return [
         "Keanu Harrell",
-        "Role: DevOps Engineer & iOS Developer", 
-        "Location: Remote",
-        "Experience: 5+ years in cloud infrastructure",
-        "Specialties: AWS, Kubernetes, Swift, TypeScript",
+        "Role: Full Stack Engineer | Cloud & Platform Engineer", 
+        "Location: Nancy, France | Warszawa, Poland (French-American)",
+        "Phone: +33 6 95 09 83 51 (FR) | +48 572 263 316 (PL)",
+        "Experience: 3+ years in cloud-native development",
+        "Specialties: React/TypeScript, Golang/C#, AWS, CI/CD",
         "",
-        "$ Passionate about automation and scalable systems"
+        "$ Expert in designing scalable microservices and data platforms"
       ]
     }
   },
@@ -64,21 +65,22 @@ export const portfolioCommands: Record<string, CommandHandler> = {
       
       if (category === 'cloud') {
         return [
-          "☁️  Cloud Platforms & Services:",
-          "├── AWS (EC2, S3, Lambda, EKS, RDS)",
-          "├── Google Cloud Platform (GKE, Cloud Run)",
-          "├── Azure (AKS, App Service)",
-          "└── Multi-cloud architecture design"
+          "☁️  Cloud & DevOps Technologies:",
+          "├── AWS (Lambda, DynamoDB, Aurora, SQS, SES, ECS)",
+          "├── Docker, Kubernetes, Helm, Kustomize",
+          "├── Terraform, Infrastructure as Code (IaC)",
+          "├── Jenkins, GitOps, ArgoCD",
+          "└── Prometheus, Grafana (Observability)"
         ]
       }
       
-      if (category === 'mobile') {
+      if (category === 'fullstack') {
         return [
-          "📱 Mobile Development:",
-          "├── Swift & SwiftUI",
-          "├── iOS SDK & Frameworks",
-          "├── Xcode & Development Tools",
-          "└── App Store deployment"
+          "🌐 Full Stack Development:",
+          "├── Frontend: React, Vue.js, TypeScript",
+          "├── Backend: Node.js, Express, .NET, C#",
+          "├── Styling: Tailwind CSS, Shadcn UI",
+          "└── Tools: Storybook, Git, CI/CD"
         ]
       }
       
@@ -86,28 +88,26 @@ export const portfolioCommands: Record<string, CommandHandler> = {
       return [
         "🚀 Technical Skills Overview:",
         "",
-        "☁️  Cloud Platforms:",
-        "    AWS, Google Cloud Platform, Azure",
-        "",
-        "🐳 Container & Orchestration:",
-        "    Kubernetes, Docker, Helm",
-        "",
-        "🏗️  Infrastructure as Code:",
-        "    Terraform, CloudFormation, Pulumi",
-        "",
         "💻 Programming Languages:",
-        "    Python, Go, TypeScript, Swift, Bash",
+        "    TypeScript, JavaScript, Golang, C#, SQL, VB",
         "",
-        "📊 Monitoring & Observability:",
-        "    Grafana, Prometheus, Datadog, New Relic",
+        "🌐 Frontend Frameworks:",
+        "    React, Vue.js, Tailwind CSS, Shadcn UI, Storybook",
         "",
-        "📱 Mobile Development:",
-        "    Swift, SwiftUI, Xcode, iOS SDK",
+        "🔧 Backend Technologies:",
+        "    Express, Node.js, .NET, ASP.NET",
+        "",
+        "☁️  Cloud & DevOps:",
+        "    AWS (Lambda, DynamoDB, Aurora, SQS, SES, ECS)",
+        "    Docker, Kubernetes, Git, GitOps, Terraform",
         "",
         "🗄️  Databases:",
-        "    PostgreSQL, MongoDB, Redis, DynamoDB",
+        "    PostgreSQL, MongoDB, NoSQL, DynamoDB",
         "",
-        "Use 'skills <category>' for detailed view (cloud, mobile)"
+        "📊 Monitoring & Tools:",
+        "    Grafana, Prometheus, Jenkins, ArgoCD, Helm",
+        "",
+        "Use 'skills <category>' for detailed view (cloud, fullstack)"
       ]
     }
   },
@@ -125,36 +125,32 @@ export const portfolioCommands: Record<string, CommandHandler> = {
         return [
           "📍 Current Position:",
           "",
-          "🏢 Senior DevOps Engineer @ TechCorp",
-          "📅 2023 - Present",
-          "🎯 Leading cloud infrastructure modernization",
+          "🏢 CTO (Freelance/Part-time) @ Untitled, Grand Nancy Innovation",
+          "📅 Nov 2024 - Present | Nancy, France",
+          "🎯 Leading serverless architecture and team development",
           "",
           "Key Achievements:",
-          "• Reduced deployment time by 75% with CI/CD automation",
-          "• Migrated 50+ services to Kubernetes",
-          "• Implemented multi-region disaster recovery",
-          "• Built observability stack serving 10M+ requests/day"
+          "• Architected AWS serverless microservices (<1s P99 latency)",
+          "• Built multi-tenant API with Auth0 & Stripe integration",
+          "• Led 2-engineer team with agile delivery & OKR planning",
+          "• Achieved zero-downtime releases with SST & Lambda"
         ]
       }
       
       return [
         "💼 Professional Experience:",
         "",
-        "🏢 Senior DevOps Engineer @ TechCorp",
-        "   📅 2023 - Present",
-        "   🎯 Leading cloud infrastructure and automation",
+        "🏢 CTO (Freelance/Part-time) @ Untitled, Grand Nancy Innovation",
+        "   📅 Nov 2024 - Present | Nancy, France",
+        "   🎯 AWS serverless architecture & team leadership",
         "",
-        "🏢 DevOps Engineer @ CloudStart",
-        "   📅 2021 - 2023",
-        "   🎯 Built scalable cloud infrastructure from scratch",
+        "🏢 Software Engineer Apprentice @ Orisha Healthcare",
+        "   📅 Aug 2022 - Present | Villers-lès-Nancy, France",
+        "   🎯 Data platforms, React UI library, GitFlow implementation",
         "",
-        "🏢 Junior DevOps Engineer @ StartupXYZ",
-        "   📅 2020 - 2021",
-        "   🎯 Automated deployment pipelines and monitoring",
-        "",
-        "🏢 iOS Developer @ FreelanceWork",
-        "   📅 2019 - 2020",
-        "   🎯 Developed mobile applications for various clients",
+        "🏢 Research Intern @ University of Warsaw",
+        "   📅 Jun 2024 - Oct 2024 | Warsaw, Poland",
+        "   🎯 Crystallography automation & Python development",
         "",
         "Use 'experience current' for detailed current role info"
       ]
@@ -202,18 +198,49 @@ export const portfolioCommands: Record<string, CommandHandler> = {
       return [
         "🚀 Portfolio Projects Overview",
         "",
-        "📁 INFRASTRUCTURE (3 projects)",
-        "├── aws-multi-region     - Multi-region AWS setup",
-        "├── k8s-monitoring       - Kubernetes monitoring stack",  
-        "└── terraform-modules    - Reusable Terraform modules",
+        "🌐 CLOUD & PLATFORM (3 projects)",
+        "├── cesi-eats           - Kubernetes microservices platform",
+        "├── analytics-lakehouse  - 2TB Trino SQL engine data platform",  
+        "└── serverless-api      - AWS multi-tenant SaaS backend",
         "",
-        "📱 MOBILE APPS (2 projects)", 
-        "├── expense-tracker-ios  - AI-powered expense tracking",
-        "└── fitness-companion    - Workout tracking with AR",
+        "🎮 GAMING & COMMUNITY (1 project)", 
+        "└── stelerio-plugins    - Minecraft plugins for 150K players",
         "",
-        "🌐 WEB APPLICATIONS (2 projects)",
-        "├── analytics-dashboard  - Real-time business metrics",
-        "└── portfolio-website    - This interactive portfolio",
+        "🔬 RESEARCH & AUTOMATION (1 project)",
+        "└── crystallography     - Python automation for crystal analysis",
+        "",
+        "💼 CURRENT PORTFOLIO",
+        "└── portfolio-terminal  - Interactive terminal portfolio",
+        ""
+      ]
+    }
+  },
+
+  education: {
+    name: 'education',
+    description: 'Display educational background',
+    category: 'portfolio',
+    usage: 'education',
+    examples: ['education'],
+    handler: async () => {
+      return [
+        "🎓 Educational Background:",
+        "",
+        "🏫 CESI Engineering School",
+        "   📍 Villers-lès-Nancy, France",
+        "   📅 Oct 2022 - Expected Sep 2025",
+        "   🎯 Master of Computer Science",
+        "   📚 Cloud & Data Engineering Track",
+        "",
+        "🏫 Nancy-Charlemagne Institute of Technology", 
+        "   📍 Nancy, France",
+        "   📅 Sep 2020 - Jul 2022",
+        "   🎯 Associate Degree in Computer Science (DUT)",
+        "",
+        "🌟 Additional Information:",
+        "• French-American nationality",
+        "• Trained first-aid responder",
+        "• Interests: Guitar, team sports (swimming, tennis, basketball)",
         ""
       ]
     }

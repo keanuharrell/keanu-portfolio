@@ -39,7 +39,7 @@ export function TerminalInput({
   return (
     <div className="relative">
       <form onSubmit={onSubmit} className="flex items-center">
-        <span className="text-green-400 mr-2">$ </span>
+        <span className="text-green-400 mr-2" aria-hidden="true">$ </span>
         <input
           ref={inputRef}
           type="text"
@@ -50,11 +50,25 @@ export function TerminalInput({
           placeholder={isTyping ? "Processing..." : "Enter command..."}
           disabled={isTyping}
           autoFocus
+          aria-label="Terminal command input"
+          aria-describedby="terminal-help"
+          role="textbox"
+          autoComplete="off"
+          spellCheck="false"
         />
         {isTyping && (
-          <span className="text-yellow-400 animate-pulse ml-2">⚡</span>
+          <span 
+            className="text-yellow-400 animate-pulse ml-2" 
+            aria-label="Processing command"
+            role="status"
+          >
+            ⚡
+          </span>
         )}
       </form>
+      <div id="terminal-help" className="sr-only">
+        Use Tab for auto-completion, Up/Down arrows for command history, Ctrl+C to cancel
+      </div>
     </div>
   )
 } 

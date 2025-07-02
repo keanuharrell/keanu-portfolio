@@ -32,7 +32,7 @@ const socialLinks = [
   },
   {
     icon: Mail,
-    href: "mailto:keanu@example.com",
+    href: "mailto:keanuharrell@icloud.com",
     label: "Email"
   }
 ]
@@ -45,11 +45,11 @@ const quickLinks = [
 ]
 
 const services = [
-  "Infrastructure Design",
-  "Cloud Migration",
-  "DevOps Consulting",
-  "iOS Development",
-  "Monitoring Setup",
+  "Full Stack Development",
+  "Cloud Architecture",
+  "DevOps & CI/CD",
+  "Data Platform Design",
+  "API Development",
   "Team Training"
 ]
 
@@ -84,15 +84,15 @@ export function Footer() {
               </Badge>
             </div>
             <p className="text-muted-foreground mb-6 max-w-md">
-              DevOps Engineer & iOS Developer specializing in scalable cloud infrastructure, 
-              automation, and native mobile applications. Based in Paris, working globally.
+              Full Stack Engineer & Cloud Platform Expert with 3+ years designing scalable 
+              microservices and data platforms. French-American based between Nancy, France and Warszawa, Poland.
             </p>
             
             {/* Location & Availability */}
             <div className="flex flex-col sm:flex-row gap-4 mb-6">
               <div className="flex items-center gap-2 text-sm text-muted-foreground">
                 <MapPin className="h-4 w-4" />
-                Paris, France
+                Nancy, France | Warszawa, Poland
               </div>
               <div className="flex items-center gap-2 text-sm text-muted-foreground">
                 <Clock className="h-4 w-4" />

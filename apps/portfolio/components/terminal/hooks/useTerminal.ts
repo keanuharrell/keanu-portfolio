@@ -7,6 +7,10 @@ import { asciiArt, easterEggCommands, allCommands } from '../commands/index'
 import { executeCommand as executeRealCommand } from '../core/commandParser'
 import { getCurrentDir } from '../core/fileSystem'
 import { TabCompletion } from '../core/tabCompletion'
+import { terminalStorage } from '../core/terminalStorage'
+
+const MAX_TERMINAL_LINES = 1000
+const MAX_HISTORY_SIZE = 100
 
 export function useTerminal() {
   const [lines, setLines] = useState<TerminalLine[]>([])
@@ -14,19 +18,33 @@ export function useTerminal() {
   const [isTyping, setIsTyping] = useState(false)
   const [commandHistory, setCommandHistory] = useState<string[]>([])
   const [historyIndex, setHistoryIndex] = useState(-1)
-  const [showWelcome, setShowWelcome] = useState(true)
+  const [showWelcome, setShowWelcome] = useState(() => {
+    const preferences = terminalStorage.getPreferences()
+    return preferences.showWelcome
+  })
   
   const terminalRef = useRef<HTMLDivElement>(null)
   const inputRef = useRef<HTMLInputElement>(null)
   const router = useRouter()
 
   const addLine = (type: TerminalLine['type'], content: string) => {
-    setLines(prev => [...prev, {
-      id: Date.now() + Math.random(),
-      type,
-      content,
-      timestamp: new Date()
-    }])
+    setLines(prev => {
+      const newLine = {
+        id: Date.now() + Math.random(),
+        type,
+        content,
+        timestamp: new Date()
+      }
+      
+      const newLines = [...prev, newLine]
+      
+      // Maintain maximum line limit
+      if (newLines.length > MAX_TERMINAL_LINES) {
+        return newLines.slice(-MAX_TERMINAL_LINES)
+      }
+      
+      return newLines
+    })
   }
 
   const simulateTyping = async (outputLines: string[]) => {
@@ -92,7 +110,19 @@ export function useTerminal() {
     const trimmedCommand = command.trim()
     
     if (trimmedCommand && !commandHistory.includes(trimmedCommand)) {
-      setCommandHistory(prev => [...prev, trimmedCommand])
+      // Add to persistent storage
+      terminalStorage.addCommand(trimmedCommand)
+      
+      setCommandHistory(prev => {
+        const newHistory = [...prev, trimmedCommand]
+        
+        // Maintain maximum history size
+        if (newHistory.length > MAX_HISTORY_SIZE) {
+          return newHistory.slice(-MAX_HISTORY_SIZE)
+        }
+        
+        return newHistory
+      })
     }
     setHistoryIndex(-1)
     
@@ -118,21 +148,26 @@ export function useTerminal() {
     }
 
     if (trimmedCommand.toLowerCase() === 'history') {
+      // Get both current session and stored history
+      const storedHistory = terminalStorage.getHistory()
+      const allHistory = [...new Set([...storedHistory, ...commandHistory])] // Remove duplicates
+      
       const hasEasterEgg = Math.random() < 0.3
       const easterEggCmd = easterEggCommands[Math.floor(Math.random() * easterEggCommands.length)]
       
       const historyOutput = [
         "Command history:",
-        ...commandHistory.map((cmd, idx) => `${idx + 1}  ${cmd}`),
+        ...allHistory.slice(-50).map((cmd, idx) => `${idx + 1}  ${cmd}`), // Show last 50 commands
       ]
       
-      if (hasEasterEgg && commandHistory.length > 3) {
-        historyOutput.push(`${commandHistory.length + 1}  ${easterEggCmd} # 🤫 You didn't see this...`)
+      if (hasEasterEgg && allHistory.length > 3) {
+        historyOutput.push(`${allHistory.length + 1}  ${easterEggCmd} # 🤫 You didn't see this...`)
         historyOutput.push("")
         historyOutput.push("⚠️  Warning: Some commands may be... fictional 😉")
       }
       
       historyOutput.push("")
+      historyOutput.push(`💾 Total commands: ${allHistory.length}`)
       
       await simulateTyping(historyOutput)
       return
@@ -156,6 +191,14 @@ export function useTerminal() {
       ])
     }
   }
+
+  // Load command history from storage on mount
+  useEffect(() => {
+    const storedHistory = terminalStorage.getHistory()
+    if (storedHistory.length > 0) {
+      setCommandHistory(storedHistory)
+    }
+  }, [])
 
   useEffect(() => {
     if (showWelcome) {
