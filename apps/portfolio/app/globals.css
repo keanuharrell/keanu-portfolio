@@ -145,4 +145,43 @@
   .backdrop-blur-custom {
     backdrop-filter: blur(16px) saturate(180%);
   }
+  
+  /* Terminal scrollbar styles */
+  .terminal-scrollbar {
+    scrollbar-width: thin;
+    scrollbar-color: #4ade80 #1f2937;
+  }
+  
+  .terminal-scrollbar::-webkit-scrollbar {
+    width: 8px;
+  }
+  
+  .terminal-scrollbar::-webkit-scrollbar-track {
+    background: #1f2937;
+    border-radius: 4px;
+  }
+  
+  .terminal-scrollbar::-webkit-scrollbar-thumb {
+    background: #4ade80;
+    border-radius: 4px;
+    opacity: 0.7;
+  }
+  
+  .terminal-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #22c55e;
+    opacity: 1;
+  }
+  
+  /* ASCII Art specific styling */
+  .ascii-art {
+    font-family: 'Courier New', 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+    font-size: 0.875rem;
+    line-height: 1.2;
+    letter-spacing: 0;
+    white-space: pre;
+    overflow-x: auto;
+    font-weight: bold;
+    font-variant-ligatures: none;
+    text-rendering: optimizeSpeed;
+  }
 }

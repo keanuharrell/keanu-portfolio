@@ -204,20 +204,6 @@ export function Footer() {
           </div>
         </motion.div>
       </div>
-
-      {/* Status Indicator */}
-      <motion.div
-        initial={{ opacity: 0, scale: 0.8 }}
-        whileInView={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 0.8 }}
-        viewport={{ once: true }}
-        className="fixed bottom-6 right-6 z-40"
-      >
-        <div className="flex items-center gap-2 bg-background/80 backdrop-blur-sm border rounded-full px-3 py-2 shadow-lg">
-          <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />
-          <span className="text-xs font-medium">Available for work</span>
-        </div>
-      </motion.div>
     </footer>
   )
 }
