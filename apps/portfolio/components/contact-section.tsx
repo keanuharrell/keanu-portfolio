@@ -132,7 +132,7 @@ export function ContactSection() {
   }
 
   return (
-    <section id="contact" className="py-20 bg-muted/30">
+    <section id="contact" className="py-20 bg-gray-900/30">
       <div className="container mx-auto px-4">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -141,9 +141,10 @@ export function ContactSection() {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">Let&apos;s Work Together</h2>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Ready to build your next application or modernize your cloud infrastructure? Let&apos;s discuss how I can help bring your project to life.
+          <h2 className="text-3xl md:text-4xl font-bold mb-4 text-white">Let's Work Together</h2>
+          <p className="text-lg text-gray-300 max-w-2xl mx-auto">
+            Ready to build your next application or modernize your cloud infrastructure? 
+            Let's discuss how I can help bring your project to life.
           </p>
         </motion.div>
 
@@ -155,11 +156,11 @@ export function ContactSection() {
             transition={{ duration: 0.8, delay: 0.2 }}
             viewport={{ once: true }}
           >
-            <Card>
+            <Card className="bg-gray-900/50 border-gray-700">
               <CardHeader>
-                <CardTitle>Start a Project</CardTitle>
-                <CardDescription>
-                  Tell me about your project and I&apos;ll get back to you within 24 hours.
+                <CardTitle className="text-white">Start a Project</CardTitle>
+                <CardDescription className="text-gray-300">
+                  Tell me about your project and I'll get back to you within 24 hours.
                 </CardDescription>
               </CardHeader>
               <CardContent>

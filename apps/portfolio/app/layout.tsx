@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
+import { Navigation } from "@/components/navigation";
 import { Footer } from "@/components/footer";
 
 const geistSans = Geist({
@@ -52,7 +53,7 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <div className="min-h-screen flex flex-col w-full max-w-full overflow-x-hidden">
-            {/* <Navigation /> */}
+            <Navigation />
             <main className="flex-1 w-full max-w-full overflow-x-hidden">
               {children}
             </main>

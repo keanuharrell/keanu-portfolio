@@ -9,24 +9,15 @@ import {
   Activity, 
   Zap, 
   Globe, 
-  Shield, 
   TrendingUp, 
   Server, 
-  Database, 
-  Cloud,
-  Cpu,
-  Network,
   AlertTriangle,
   CheckCircle,
-  Clock,
   DollarSign,
-  Users,
   Rocket,
   Monitor,
   Scale,
-  GitBranch,
   Terminal,
-  Eye
 } from "lucide-react"
 
 interface LiveMetric {

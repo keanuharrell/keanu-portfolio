@@ -12,7 +12,11 @@ import { allCommands } from '../commands/index'
 import { useState, useEffect } from 'react'
 import { terminalStorage, TerminalPreferences } from '../core/terminalStorage'
 
-export function PortfolioTerminal() {
+interface PortfolioTerminalProps {
+  onExit?: () => void
+}
+
+export function PortfolioTerminal({ onExit }: PortfolioTerminalProps) {
   const {
     lines,
     currentInput,
@@ -61,6 +65,11 @@ export function PortfolioTerminal() {
     e.preventDefault()
     if (!currentInput.trim() || isTyping) return
     
+    // Handle exit command
+    if (currentInput.trim() === 'exit' && onExit) {
+      onExit()
+      return
+    }
     
     await executeCommand(currentInput)
     setCurrentInput("")
@@ -99,19 +108,34 @@ export function PortfolioTerminal() {
   const handleQuickCommand = async (command: { command: string }) => {
     if (isTyping) return
     setCurrentInput(command.command)
+    
+    // Handle exit command
+    if (command.command === 'exit' && onExit) {
+      onExit()
+      return
+    }
+    
     await executeCommand(command.command)
     setCurrentInput("")
   }
 
   // Convert allCommands to quick commands format
-  const quickCommands = Object.values(allCommands)
-    .filter(cmd => ['portfolio', 'navigation'].includes(cmd.category))
-    .slice(0, 8)
-    .map(cmd => ({
-      command: cmd.name,
-      description: cmd.description,
-      category: cmd.category as 'system' | 'portfolio' | 'social' | 'navigation'
-    }))
+  const quickCommands = [
+    ...Object.values(allCommands)
+      .filter(cmd => ['portfolio', 'navigation'].includes(cmd.category))
+      .slice(0, 7)
+      .map(cmd => ({
+        command: cmd.name,
+        description: cmd.description,
+        category: cmd.category as 'system' | 'portfolio' | 'social' | 'navigation'
+      })),
+    // Add exit command if onExit is provided
+    ...(onExit ? [{
+      command: 'exit',
+      description: 'Exit developer mode',
+      category: 'system' as const
+    }] : [])
+  ]
 
   return (
     <TerminalErrorBoundary>
