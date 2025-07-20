@@ -5,22 +5,6 @@
 
 declare module "sst" {
   export interface Resource {
-    "Auth0ClientId": {
-      "type": "sst.sst.Secret"
-      "value": string
-    }
-    "Auth0ClientSecret": {
-      "type": "sst.sst.Secret"
-      "value": string
-    }
-    "Auth0Domain": {
-      "type": "sst.sst.Secret"
-      "value": string
-    }
-    "Auth0SigningKey": {
-      "type": "sst.sst.Secret"
-      "value": string
-    }
     "GithubClientId": {
       "type": "sst.sst.Secret"
       "value": string
@@ -36,6 +20,10 @@ declare module "sst" {
     "GoogleClientSecret": {
       "type": "sst.sst.Secret"
       "value": string
+    }
+    "KeanuPortfolioAuth": {
+      "type": "sst.aws.Auth"
+      "url": string
     }
     "UrlShortenerApi": {
       "type": "sst.aws.ApiGatewayV2"

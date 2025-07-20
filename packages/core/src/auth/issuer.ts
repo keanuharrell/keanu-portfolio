@@ -2,7 +2,7 @@ import { SendEmailCommand, SESv2Client } from "@aws-sdk/client-sesv2";
 import { issuer } from "@openauthjs/openauth";
 import { CodeProvider } from "@openauthjs/openauth/provider/code";
 import { GoogleOidcProvider } from "@openauthjs/openauth/provider/google";
-import { GitHubOidcProvider } from "@openauthjs/openauth/provider/github";
+import { GithubProvider } from "@openauthjs/openauth/provider/github";
 import { handle } from "hono/aws-lambda";
 import { Resource } from "sst";
 import { subjects } from "./subjects";
@@ -74,7 +74,7 @@ export const handler = handle(
         clientID: Resource.GoogleClientId?.value || "",
         scopes: ["openid", "email", "profile"],
       }),
-      github: GitHubOidcProvider({
+      github: GithubProvider({
         clientId: Resource.GithubClientId?.value || "",
         scopes: ["user:email"],
       }),
@@ -117,15 +117,14 @@ export const handler = handle(
     },
     async allow(input) {
       const url = new URL(input.redirectURI);
-      const allowedHosts = [
-        "localhost",
-        "127.0.0.1",
-        "short.keanu.dev", // Your URL shortener domain
-        "keanu.dev",       // Your main domain
-      ];
       
-      return allowedHosts.some(host => 
-        url.hostname === host || url.hostname.endsWith(`.${host}`)
+      // Get allowed domains from environment (set in infra)
+      const allowedDomains = JSON.parse(
+        process.env.ALLOWED_REDIRECT_DOMAINS || '["localhost", "127.0.0.1"]'
+      );
+      
+      return allowedDomains.some((domain: string) => 
+        url.hostname === domain || url.hostname.endsWith(`.${domain}`)
       );
     },
   }),

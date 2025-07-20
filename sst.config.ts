@@ -21,6 +21,7 @@ export default $config({
     await import("./infra/shared/dns");
     await import("./infra/shared/stage");
     await import("./infra/shared/secret");
+    await import("./infra/shared/auth");
 
     // --- Apps ---
     // Portfolio

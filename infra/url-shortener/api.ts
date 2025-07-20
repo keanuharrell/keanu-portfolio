@@ -1,5 +1,6 @@
 import { createDynamoMonotable } from "../templates/dynamo";
 import { domain } from "../shared/dns";
+import { authConfig } from "../templates/app-auth";
 
 export const dynamo = createDynamoMonotable("UrlShortenerDynamo");
 
@@ -8,10 +9,12 @@ export const urlShortenerFunction = new sst.aws.Function("UrlShortenerFunction",
   runtime: "nodejs20.x",
   timeout: "30 seconds",
   memory: "512 MB",
-  link: [dynamo],
+  link: [dynamo, ...authConfig.api().link],
   environment: {
     TABLE_NAME: dynamo.name,
     NEXT_PUBLIC_APP_URL: `https://short.${domain}`,
+    // Auth environment variables
+    ...authConfig.api().environment,
   },
 });
 

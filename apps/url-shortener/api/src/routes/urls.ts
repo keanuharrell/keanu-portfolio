@@ -1,13 +1,13 @@
 import { Hono } from "hono";
 import { UrlService, ClickEntity } from "../db";
 import { generateShortCode, isValidUrl, formatUrl } from "../utils";
+import { requireAuth, optionalAuth, requireUser, getUser } from "@portfolio/core";
 
 const app = new Hono();
 
-// Create a new short URL - TODO: Add SST Auth middleware
-app.post("/", async (c) => {
-  // TODO: Replace with SST Auth user extraction
-  const user = { sub: "temp-user-id" };
+// Create a new short URL
+app.post("/", requireAuth(), async (c) => {
+  const user = requireUser(c);
   const body = await c.req.json();
   
   const { originalUrl, customSlug, expiresAt } = body;
@@ -36,7 +36,7 @@ app.post("/", async (c) => {
     const result = await UrlService.entities.url.create({
       shortCode,
       originalUrl,
-      userId: user.sub,
+      userId: user.id,
       customSlug: !!customSlug,
       expiresAt,
     }).go();
@@ -53,16 +53,15 @@ app.post("/", async (c) => {
   }
 });
 
-// Get user's URLs - TODO: Add SST Auth middleware
-app.get("/", async (c) => {
-  // TODO: Replace with SST Auth user extraction
-  const user = { sub: "temp-user-id" };
+// Get user's URLs
+app.get("/", requireAuth(), async (c) => {
+  const user = requireUser(c);
   const limit = parseInt(c.req.query("limit") || "10");
   const cursor = c.req.query("cursor");
 
   try {
     const result = await UrlService.entities.url.query
-      .byUser({ userId: user.sub })
+      .byUser({ userId: user.id })
       .go({
         limit,
         cursor: cursor ? JSON.parse(cursor) : undefined,
@@ -87,11 +86,10 @@ app.get("/", async (c) => {
   }
 });
 
-// Get specific URL (owner gets full details, others get limited info) - TODO: Add SST Auth middleware
-app.get("/:shortCode", async (c) => {
+// Get specific URL (owner gets full details, others get limited info)
+app.get("/:shortCode", optionalAuth(), async (c) => {
   const shortCode = c.req.param("shortCode");
-  // TODO: Replace with SST Auth user extraction (optional)
-  const user = null;
+  const user = getUser(c);
 
   try {
     const result = await UrlService.entities.url.get({ shortCode }).go();
@@ -101,7 +99,7 @@ app.get("/:shortCode", async (c) => {
     }
 
     const url = result.data;
-    const isOwner = user && url.userId === user.sub;
+    const isOwner = user && url.userId === user.id;
 
     // If user is the owner, return full details
     if (isOwner) {
@@ -133,11 +131,10 @@ app.get("/:shortCode", async (c) => {
   }
 });
 
-// Update URL - TODO: Add SST Auth middleware
-app.put("/:shortCode", async (c) => {
+// Update URL
+app.put("/:shortCode", requireAuth(), async (c) => {
   const shortCode = c.req.param("shortCode");
-  // TODO: Replace with SST Auth user extraction
-  const user = { sub: "temp-user-id" };
+  const user = requireUser(c);
   const body = await c.req.json();
   
   const { originalUrl, isActive } = body;
@@ -150,7 +147,7 @@ app.put("/:shortCode", async (c) => {
       return c.json({ error: "URL not found" }, 404);
     }
 
-    if (existing.data.userId !== user.sub) {
+    if (existing.data.userId !== user.id) {
       return c.json({ error: "Unauthorized" }, 403);
     }
 
@@ -175,11 +172,10 @@ app.put("/:shortCode", async (c) => {
   }
 });
 
-// Delete URL (also deletes associated click events) - TODO: Add SST Auth middleware
-app.delete("/:shortCode", async (c) => {
+// Delete URL (also deletes associated click events)
+app.delete("/:shortCode", requireAuth(), async (c) => {
   const shortCode = c.req.param("shortCode");
-  // TODO: Replace with SST Auth user extraction
-  const user = { sub: "temp-user-id" };
+  const user = requireUser(c);
 
   try {
     // Check if URL exists and belongs to user
@@ -189,7 +185,7 @@ app.delete("/:shortCode", async (c) => {
       return c.json({ error: "URL not found" }, 404);
     }
 
-    if (existing.data.userId !== user.sub) {
+    if (existing.data.userId !== user.id) {
       return c.json({ error: "Unauthorized" }, 403);
     }
 
