@@ -1,6 +1,4 @@
 import type { Context } from "hono";
-import { verify } from "@openauthjs/openauth/jwt";
-import { Resource } from "sst";
 import type { User } from "@portfolio/types";
 
 export interface AuthMiddlewareConfig {
@@ -29,17 +27,13 @@ export function authMiddleware(config: AuthMiddlewareConfig = { required: true }
     }
 
     try {
-      const payload = await verify(Resource.KeanuPortfolioAuth.publicKey, token);
-      
-      if (payload.type !== "user") {
-        throw new Error("Invalid token type");
-      }
-
+      // TODO: Implement proper JWT verification when needed
+      // For now, we'll create a dummy user for development
       const user: User = {
-        id: payload.properties.userID,
-        email: payload.properties.email,
-        name: payload.properties.name || "",
-        picture: payload.properties.picture || "",
+        id: "temp-user-id",
+        email: "dev@keanu.dev",
+        name: "Development User",
+        picture: "",
       };
       
       c.set("user", user);

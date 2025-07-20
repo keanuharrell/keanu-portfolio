@@ -1,12 +1,11 @@
 import type { CreateUrlRequest, UrlResponse, ListUrlsResponse, ApiError } from './types';
 
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000';
-
 class ApiClient {
   private baseURL: string;
 
-  constructor(baseURL: string) {
-    this.baseURL = baseURL;
+  constructor() {
+    // Use relative URLs for Next.js API routes
+    this.baseURL = '/api';
   }
 
   private async request<T>(
@@ -15,14 +14,14 @@ class ApiClient {
   ): Promise<T> {
     const url = `${this.baseURL}${endpoint}`;
     
-    // Get access token on client side
-    const token = await fetch('/api/auth/token').then(res => res.ok ? res.json() : null).catch(() => null);
+    // Get access token from localStorage (OpenAuth convention)
+    const token = typeof window !== 'undefined' ? localStorage.getItem('openauth.token') : null;
     
     const response = await fetch(url, {
       ...options,
       headers: {
         'Content-Type': 'application/json',
-        ...(token?.accessToken && { Authorization: `Bearer ${token.accessToken}` }),
+        ...(token && { Authorization: `Bearer ${token}` }),
         ...options.headers,
       },
     });
@@ -38,7 +37,7 @@ class ApiClient {
   }
 
   async createUrl(data: CreateUrlRequest): Promise<UrlResponse> {
-    return this.request<UrlResponse>('/api/urls', {
+    return this.request<UrlResponse>('/urls', {
       method: 'POST',
       body: JSON.stringify(data),
     });
@@ -50,28 +49,28 @@ class ApiClient {
       ...(cursor && { cursor }),
     });
 
-    return this.request<ListUrlsResponse>(`/api/urls?${params}`);
+    return this.request<ListUrlsResponse>(`/urls?${params}`);
   }
 
   async getUrl(shortCode: string): Promise<UrlResponse> {
-    return this.request<UrlResponse>(`/api/urls/${shortCode}`);
+    return this.request<UrlResponse>(`/urls/${shortCode}`);
   }
 
   async updateUrl(
     shortCode: string,
     data: { originalUrl?: string; isActive?: boolean }
   ): Promise<{ message: string }> {
-    return this.request<{ message: string }>(`/api/urls/${shortCode}`, {
+    return this.request<{ message: string }>(`/urls/${shortCode}`, {
       method: 'PUT',
       body: JSON.stringify(data),
     });
   }
 
   async deleteUrl(shortCode: string): Promise<{ message: string; shortCode: string }> {
-    return this.request<{ message: string; shortCode: string }>(`/api/urls/${shortCode}`, {
+    return this.request<{ message: string; shortCode: string }>(`/urls/${shortCode}`, {
       method: 'DELETE',
     });
   }
 }
 
-export const apiClient = new ApiClient(API_BASE_URL);
+export const apiClient = new ApiClient();

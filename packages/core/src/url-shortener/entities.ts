@@ -1,8 +1,6 @@
 import { Entity, Service } from "electrodb";
 import { DynamoDBClient } from "@aws-sdk/client-dynamodb";
 
-const client = new DynamoDBClient({});
-
 // URL Entity
 export const UrlEntity = new Entity({
   model: {
@@ -71,7 +69,7 @@ export const UrlEntity = new Entity({
       },
     },
   },
-}, { client, table: process.env.TABLE_NAME });
+});
 
 // Click Event Entity
 export const ClickEntity = new Entity({
@@ -129,10 +127,23 @@ export const ClickEntity = new Entity({
       },
     },
   },
-}, { client, table: process.env.TABLE_NAME });
+});
 
-// Create service
-export const UrlService = new Service({
-  url: UrlEntity,
-  click: ClickEntity,
-}, { client, table: process.env.TABLE_NAME });
+// Create service factory
+export function createUrlService(tableName: string) {
+  const client = new DynamoDBClient({});
+  
+  // Create entities with the table name
+  const urlEntity = new Entity({
+    ...UrlEntity,
+  }, { client, table: tableName });
+  
+  const clickEntity = new Entity({
+    ...ClickEntity,
+  }, { client, table: tableName });
+
+  return new Service({
+    url: urlEntity,
+    click: clickEntity,
+  }, { client, table: tableName });
+}

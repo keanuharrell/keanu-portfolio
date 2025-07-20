@@ -6,77 +6,36 @@ import { GithubProvider } from "@openauthjs/openauth/provider/github";
 import { handle } from "hono/aws-lambda";
 import { Resource } from "sst";
 import { subjects } from "./subjects";
-import { z } from "zod";
+import { CodeUI } from "@openauthjs/openauth/ui/code";
+import { DynamoStorage } from "@openauthjs/openauth/storage/dynamo"
+
 
 const ses = new SESv2Client({});
 
+const storage = DynamoStorage({
+  table: "auth-keanuharrell",
+});
+
 export const handler = handle(
   issuer({
+    storage,
     subjects,
     providers: {
-      email: CodeProvider({
-        async request(req, state, form, error) {
-          const params = new URLSearchParams();
-          if (error) {
-            params.set("error", error.type);
+      email: CodeProvider(
+        CodeUI({
+          sendCode: async (claims, code) => {
+            console.log(claims.email, code);
           }
-          
-          const frontendUrl = process.env.AUTH_FRONTEND_URL || "http://localhost:3000";
-          
-          if (state.type === "start") {
-            return Response.redirect(
-              `${frontendUrl}/auth/email?${params.toString()}`,
-              302,
-            );
-          }
-
-          if (state.type === "code") {
-            return Response.redirect(
-              `${frontendUrl}/auth/code?${params.toString()}`,
-              302,
-            );
-          }
-
-          return new Response("ok");
-        },
-        async sendCode(claims, code) {
-          const email = z.string().email().parse(claims.email);
-          const cmd = new SendEmailCommand({
-            Destination: {
-              ToAddresses: [email],
-            },
-            FromEmailAddress: `URL Shortener <noreply@${Resource.Email?.sender || "localhost"}>`,
-            Content: {
-              Simple: {
-                Body: {
-                  Html: {
-                    Data: `
-                      <h2>Your verification code</h2>
-                      <p>Use this code to sign in to your URL Shortener account:</p>
-                      <div style="font-family: monospace; font-size: 24px; font-weight: bold; background: #f0f0f0; padding: 10px; border-radius: 5px; display: inline-block;">${code}</div>
-                      <p>This code will expire in 10 minutes.</p>
-                    `,
-                  },
-                  Text: {
-                    Data: `Your verification code for URL Shortener is: ${code}\n\nThis code will expire in 10 minutes.`,
-                  },
-                },
-                Subject: {
-                  Data: `URL Shortener - Verification Code: ${code}`,
-                },
-              },
-            },
-          });
-          await ses.send(cmd);
-        },
-      }),
+        })
+      ),
       google: GoogleOidcProvider({
-        clientID: Resource.GoogleClientId?.value || "",
+        clientID: Resource.GoogleClientId.value,
         scopes: ["openid", "email", "profile"],
       }),
       github: GithubProvider({
-        clientId: Resource.GithubClientId?.value || "",
-        scopes: ["user:email"],
+        clientID: Resource.GithubClientId.value,
+        clientSecret: Resource.GithubClientSecret.value,
+        scopes: ["email", "profile"],
       }),
     },
     async success(ctx, response) {
@@ -95,9 +54,10 @@ export const handler = handle(
       }
 
       if (response.provider === "github") {
-        email = response.id.email as string;
-        name = response.id.name as string;
-        picture = response.id.avatar_url as string;
+        // GitHub provider returns user info in different format
+        email = (response as any).userinfo?.email as string;
+        name = (response as any).userinfo?.name as string;
+        picture = (response as any).userinfo?.avatar_url as string;
       }
 
       if (!email) {
@@ -108,24 +68,24 @@ export const handler = handle(
       // For now, we'll just return the user info
       const userID = `user_${Buffer.from(email).toString('base64').replace(/[^a-zA-Z0-9]/g, '').substring(0, 12)}`;
 
-      return ctx.subject("user", userID, {
+      return ctx.subject("user", {
         userID,
         email,
         name,
         picture,
       });
     },
-    async allow(input) {
-      const url = new URL(input.redirectURI);
+    // async allow(input) {
+    //   const url = new URL(input.redirectURI);
       
-      // Get allowed domains from environment (set in infra)
-      const allowedDomains = JSON.parse(
-        process.env.ALLOWED_REDIRECT_DOMAINS || '["localhost", "127.0.0.1"]'
-      );
+    //   // Get allowed domains from environment (set in infra)
+    //   const allowedDomains = JSON.parse(
+    //     process.env.ALLOWED_REDIRECT_DOMAINS || '["localhost", "127.0.0.1"]'
+    //   );
       
-      return allowedDomains.some((domain: string) => 
-        url.hostname === domain || url.hostname.endsWith(`.${domain}`)
-      );
-    },
+    //   return allowedDomains.some((domain: string) => 
+    //     url.hostname === domain || url.hostname.endsWith(`.${domain}`)
+    //   );
+    // },
   }),
 );

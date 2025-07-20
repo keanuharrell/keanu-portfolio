@@ -25,9 +25,14 @@ declare module "sst" {
       "type": "sst.aws.Auth"
       "url": string
     }
-    "UrlShortenerApi": {
-      "type": "sst.aws.ApiGatewayV2"
-      "url": string
+    "SharedDatabase": {
+      "name": string
+      "type": "sst.aws.Dynamo"
+    }
+    "SharedEmail": {
+      "configSet": string
+      "sender": string
+      "type": "sst.aws.Email"
     }
     "UrlShortenerDynamo": {
       "name": string
@@ -36,10 +41,6 @@ declare module "sst" {
     "UrlShortenerFrontend": {
       "type": "sst.aws.Nextjs"
       "url": string
-    }
-    "UrlShortenerFunction": {
-      "name": string
-      "type": "sst.aws.Function"
     }
   }
 }

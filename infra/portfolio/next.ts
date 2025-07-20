@@ -10,7 +10,7 @@ export const portfolio = new sst.aws.Nextjs("Portfolio", {
     redirects: ["www." + domain],
     dns,
   },
-  ...authConfig.nextjs(appUrl),
+  link: [...authConfig.nextjs(appUrl).link],
   environment: {
     // Portfolio-specific environment variables
     NEXT_PUBLIC_SITE_NAME: "Keanu Portfolio",

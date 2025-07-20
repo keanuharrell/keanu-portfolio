@@ -1,22 +1,17 @@
+import { sharedAuth } from "../shared/auth";
 import { domain, dns } from "../shared/dns";
-import { authConfig } from "../templates/app-auth";
-import { urlShortenerApi } from "./api";
+import { sharedEmail } from "../shared/email";
+import { createDynamoMonotable } from "../templates/dynamo";
 
-const appUrl = $dev ? "http://localhost:3000" : `https://short.${domain}`;
+export const urlShortenerDynamo = createDynamoMonotable("UrlShortenerDynamo");
 
 export const urlShortenerNext = new sst.aws.Nextjs("UrlShortenerFrontend", {
-  path: "apps/url-shortener/next",
+  path: "apps/url-shortener",
   domain: {
     name: `short.${domain}`,
     dns,
   },
-  ...authConfig.nextjs(appUrl),
-  environment: {
-    // App-specific environment variables
-    NEXT_PUBLIC_API_URL: urlShortenerApi.url,
-    // Auth variables are handled by authConfig.nextjs()
-    ...authConfig.nextjs(appUrl).environment,
-  },
+  link: [urlShortenerDynamo, sharedEmail, sharedAuth],
   dev: {
     url: "http://localhost:3000",
   }

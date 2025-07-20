@@ -1,22 +1,23 @@
-"use client";
-
+import { auth, login, logout } from "./(auth)/actions";
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Link2, QrCode, BarChart3, Copy, ExternalLink, LogIn, LogOut, User } from "lucide-react";
+import { Link2, QrCode, BarChart3, Copy, ExternalLink, LogIn, LogOut, User, Loader2 } from "lucide-react";
 import { toast } from "sonner";
 import { useCreateUrl } from "@/hooks/useUrls";
+import { LoginButton } from "@/components/login-button";
 
-export default function HomePage() {
+export default async function HomePage() {
+  const { subjects } = await auth()
+  
   const [url, setUrl] = useState("");
   const [customSlug, setCustomSlug] = useState("");
   const [result, setResult] = useState<{ shortUrl: string; shortCode: string } | null>(null);
   
   const createUrlMutation = useCreateUrl();
-  const user: { name?: string; sub?: string } | null = null; // TODO: Replace with SST Auth
 
   const handleShorten = async () => {
     if (!url) return;
@@ -55,28 +56,26 @@ export default function HomePage() {
               <h1 className="text-xl font-bold">URL Shortener</h1>
             </div>
             <div className="flex items-center space-x-4">
-              {user ? (
+              {state.type === "loading" ? (
+                <div className="flex items-center space-x-2">
+                  <Loader2 className="h-4 w-4 animate-spin" />
+                  <span className="text-sm">Loading...</span>
+                </div>
+              ) : state.type === "authenticated" ? (
                 <div className="flex items-center space-x-4">
                   <div className="flex items-center space-x-2">
                     <div className="w-8 h-8 bg-primary/10 rounded-full flex items-center justify-center">
                       <User className="h-4 w-4 text-primary" />
                     </div>
-                    <span className="text-sm font-medium">{"User"}</span>
+                    <span className="text-sm font-medium">{state.user.name || state.user.email}</span>
                   </div>
-                  <Button variant="outline" size="sm" asChild>
-                    <a href="/auth/logout">
-                      <LogOut className="h-4 w-4 mr-2" />
-                      Logout
-                    </a>
+                  <Button variant="outline" size="sm" onClick={logout}>
+                    <LogOut className="h-4 w-4 mr-2" />
+                    Logout
                   </Button>
                 </div>
               ) : (
-                <Button variant="outline" size="sm" asChild>
-                  <a href="/auth/login">
-                    <LogIn className="h-4 w-4 mr-2" />
-                    Login
-                  </a>
-                </Button>
+                <LoginButton />
               )}
             </div>
           </div>
@@ -119,7 +118,7 @@ export default function HomePage() {
                 />
                 <Button
                   onClick={handleShorten}
-                  disabled={!url || createUrlMutation.isPending || !user}
+                  disabled={!url || createUrlMutation.isPending || state.type !== "authenticated"}
                   className="px-8"
                 >
                   {createUrlMutation.isPending ? "Shortening..." : "Shorten"}
@@ -135,10 +134,10 @@ export default function HomePage() {
               />
             </div>
 
-            {!user && (
+            {state.type !== "authenticated" && (
               <div className="bg-muted/50 rounded-lg p-4 border border-border/60 text-center">
                 <p className="text-sm text-muted-foreground">
-                  Please <a href="/auth/login" className="text-primary hover:underline">login</a> to create short URLs
+                  Please login to create short URLs
                 </p>
               </div>
             )}

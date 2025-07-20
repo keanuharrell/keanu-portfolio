@@ -1,5 +1,7 @@
+import { sharedDatabase } from "./database";
 import { domain, dns } from "./dns";
-import { secret } from "./secret";
+import { sharedEmail } from "./email";
+import { allSecrets } from "./secret";
 
 /**
  * Shared authentication system for all apps in the Keanu Portfolio
@@ -14,27 +16,26 @@ import { secret } from "./secret";
  * - auth.url (OpenAuth endpoint)
  * - auth.publicKey (for JWT verification)
  */
-export const auth = new sst.aws.Auth("KeanuPortfolioAuth", {
+export const sharedAuth = new sst.aws.Auth("KeanuPortfolioAuth", {
   domain: {
     name: `auth.${domain}`,
     dns,
   },
   issuer: {
     dev: false,
-    link: [secret.googleClientId, secret.googleClientSecret, secret.githubClientId, secret.githubClientSecret],
+    link: [sharedDatabase, sharedEmail, allSecrets],
     handler: "packages/core/src/auth/issuer.handler",
     environment: {
-      // Default to portfolio domain, apps can override
-      AUTH_FRONTEND_URL: $dev ? "http://localhost:3000" : `https://${domain}`,
-      ALLOWED_REDIRECT_DOMAINS: JSON.stringify([
-        domain, // keanu.dev
-        `portfolio.${domain}`, // portfolio.keanu.dev
-        `short.${domain}`, // short.keanu.dev
-        `blog.${domain}`, // blog.keanu.dev (future)
-        `api.${domain}`, // api.keanu.dev (future)
-        "localhost", // dev
-        "127.0.0.1", // dev
-      ]),
+      // AUTH_FRONTEND_URL: $dev ? "http://localhost:3000" : `https://${domain}`,
+      // ALLOWED_REDIRECT_DOMAINS: JSON.stringify([
+      //   domain, // keanu.dev
+      //   `portfolio.${domain}`, // portfolio.keanu.dev
+      //   `short.${domain}`, // short.keanu.dev
+      //   `blog.${domain}`, // blog.keanu.dev (future)
+      //   `api.${domain}`, // api.keanu.dev (future)
+      //   "localhost", // dev
+      //   "127.0.0.1", // dev
+      // ]),
     },
   },
 })
