@@ -1,113 +1,109 @@
 "use client"
 
 import { motion } from "framer-motion"
-import { Code, Cloud, Database, Zap } from "lucide-react"
-import { Card, CardContent } from "@/components/ui/card"
+import { MinimalCard } from "@/components/ui/minimal-card"
+import { Code, Cloud, Database, Users } from "lucide-react"
 
 export function AboutSection() {
-  const highlights = [
-    {
-      icon: Code,
-      title: "Full Stack Development",
-      description: "React, TypeScript, Next.js, Node.js"
-    },
-    {
-      icon: Cloud,
-      title: "Cloud Architecture",
-      description: "AWS, Microservices, Serverless"
-    },
-    {
-      icon: Database,
-      title: "Data Platforms",
-      description: "Scalable data pipelines and analytics"
-    },
-    {
-      icon: Zap,
-      title: "DevOps & CI/CD",
-      description: "Automation and continuous deployment"
-    }
-  ]
-
   return (
-    <section id="about" className="py-20 bg-gray-900/50">
-      <div className="max-w-6xl mx-auto px-4">
+    <section id="about" className="py-20">
+      <div className="max-w-4xl mx-auto px-6">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
           viewport={{ once: true }}
-          className="text-center mb-16"
+          className="text-center mb-12"
         >
-          <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
+          <h2 className="text-3xl md:text-4xl font-bold mb-6">
             About Me
           </h2>
-          <p className="text-xl text-gray-300 max-w-3xl mx-auto">
-            Passionate about technology and innovation, I design robust technical solutions 
-            that combine performance, scalability, and exceptional user experience.
+          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+            Passionate developer with solid experience in building modern web applications 
+            and scalable cloud architectures.
           </p>
         </motion.div>
 
-        <div className="grid md:grid-cols-2 gap-12 items-center mb-16">
+        <div className="grid md:grid-cols-2 gap-8 items-start">
           <motion.div
             initial={{ opacity: 0, x: -20 }}
             whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.6 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
             viewport={{ once: true }}
           >
-            <h3 className="text-2xl font-bold text-white mb-6">My Journey</h3>
-            <div className="space-y-4 text-gray-300">
-              <p>
-                With over 3 years of experience in full-stack development and cloud engineering, 
-                I've had the opportunity to work on diverse projects ranging from modern web applications 
-                to complex data architectures.
-              </p>
-              <p>
-                My specialty lies in designing cloud-native microservices and creating 
-                scalable data platforms that support business growth.
-              </p>
-              <p>
-                I enjoy solving complex problems with elegant solutions and maintaining 
-                constant technological awareness to stay at the forefront of innovations.
-              </p>
-            </div>
+            <MinimalCard>
+              <div className="space-y-6">
+                <p className="text-lg leading-relaxed">
+                  I'm a full-stack developer with 3+ years of experience in designing 
+                  and building cloud-native solutions. My expertise spans the entire 
+                  development lifecycle, from modern frontend to microservices architectures.
+                </p>
+                
+                <p className="text-lg leading-relaxed">
+                  Passionate about technological innovation, I specialize in creating 
+                  performant, scalable applications focused on user experience. 
+                  I enjoy solving complex problems and transforming ideas into concrete solutions.
+                </p>
+              </div>
+            </MinimalCard>
           </motion.div>
 
           <motion.div
             initial={{ opacity: 0, x: 20 }}
             whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.6 }}
+            transition={{ duration: 0.6, delay: 0.4 }}
             viewport={{ once: true }}
-            className="grid grid-cols-2 gap-4"
+            className="grid gap-4"
           >
-            {highlights.map((highlight, index) => (
-              <Card key={index} className="bg-black/50 border-gray-700 hover:border-green-500/50 transition-colors">
-                <CardContent className="p-6 text-center">
-                  <highlight.icon className="w-8 h-8 text-green-400 mx-auto mb-4" />
-                  <h4 className="text-white font-semibold mb-2">{highlight.title}</h4>
-                  <p className="text-gray-400 text-sm">{highlight.description}</p>
-                </CardContent>
-              </Card>
-            ))}
+            <MinimalCard className="group">
+              <div className="flex items-center gap-4">
+                <div className="p-2 rounded-lg bg-primary/10 text-primary">
+                  <Code className="w-5 h-5" />
+                </div>
+                <div>
+                  <h4 className="font-medium mb-1">Frontend</h4>
+                  <p className="text-sm text-muted-foreground">React, TypeScript, Next.js</p>
+                </div>
+              </div>
+            </MinimalCard>
+
+            <MinimalCard className="group">
+              <div className="flex items-center gap-4">
+                <div className="p-2 rounded-lg bg-primary/10 text-primary">
+                  <Database className="w-5 h-5" />
+                </div>
+                <div>
+                  <h4 className="font-medium mb-1">Backend</h4>
+                  <p className="text-sm text-muted-foreground">Node.js, Golang, Python</p>
+                </div>
+              </div>
+            </MinimalCard>
+
+            <MinimalCard className="group">
+              <div className="flex items-center gap-4">
+                <div className="p-2 rounded-lg bg-primary/10 text-primary">
+                  <Cloud className="w-5 h-5" />
+                </div>
+                <div>
+                  <h4 className="font-medium mb-1">Cloud & DevOps</h4>
+                  <p className="text-sm text-muted-foreground">AWS, Docker, Kubernetes</p>
+                </div>
+              </div>
+            </MinimalCard>
+
+            <MinimalCard className="group">
+              <div className="flex items-center gap-4">
+                <div className="p-2 rounded-lg bg-primary/10 text-primary">
+                  <Users className="w-5 h-5" />
+                </div>
+                <div>
+                  <h4 className="font-medium mb-1">Collaboration</h4>
+                  <p className="text-sm text-muted-foreground">Agile, Leadership, Mentoring</p>
+                </div>
+              </div>
+            </MinimalCard>
           </motion.div>
         </div>
-
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.2 }}
-          viewport={{ once: true }}
-          className="text-center"
-        >
-          <div className="bg-gradient-to-r from-green-500/10 to-blue-500/10 rounded-lg p-8 border border-gray-700">
-            <h3 className="text-2xl font-bold text-white mb-4">
-              "Technology in service of innovation"
-            </h3>
-            <p className="text-gray-300 max-w-2xl mx-auto">
-              Every line of code written aims to create value, 
-              improve user experience, and contribute to project success.
-            </p>
-          </div>
-        </motion.div>
       </div>
     </section>
   )

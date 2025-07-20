@@ -5,22 +5,53 @@
 
 declare module "sst" {
   export interface Resource {
-    "Api": {
-      "name": string
-      "type": "sst.aws.Function"
+    "Auth0ClientId": {
+      "type": "sst.sst.Secret"
+      "value": string
+    }
+    "Auth0ClientSecret": {
+      "type": "sst.sst.Secret"
+      "value": string
+    }
+    "Auth0Domain": {
+      "type": "sst.sst.Secret"
+      "value": string
+    }
+    "Auth0SigningKey": {
+      "type": "sst.sst.Secret"
+      "value": string
+    }
+    "GithubClientId": {
+      "type": "sst.sst.Secret"
+      "value": string
+    }
+    "GithubClientSecret": {
+      "type": "sst.sst.Secret"
+      "value": string
+    }
+    "GoogleClientId": {
+      "type": "sst.sst.Secret"
+      "value": string
+    }
+    "GoogleClientSecret": {
+      "type": "sst.sst.Secret"
+      "value": string
+    }
+    "UrlShortenerApi": {
+      "type": "sst.aws.ApiGatewayV2"
       "url": string
     }
-    "ApiRouter": {
-      "type": "sst.aws.Router"
-      "url": string
-    }
-    "DynamoTable": {
+    "UrlShortenerDynamo": {
       "name": string
       "type": "sst.aws.Dynamo"
     }
-    "Portfolio": {
+    "UrlShortenerFrontend": {
       "type": "sst.aws.Nextjs"
       "url": string
+    }
+    "UrlShortenerFunction": {
+      "name": string
+      "type": "sst.aws.Function"
     }
   }
 }

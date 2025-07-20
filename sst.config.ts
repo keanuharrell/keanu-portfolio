@@ -11,20 +11,22 @@ export default $config({
           profile: "sst",
         },
         cloudflare: {
-          apiToken: process.env.CLOUDFLARE_API_TOKEN,
           version: "6.3.1",
         },
       },
     };
   },
   async run() {
-    await import("./infra/dns");
-    await import("./infra/stage");
-    await import("./infra/api");
-    await import("./infra/dynamo");
-    await import("./infra/portfolio");
-    // await import("./infra/secret");
-    // await import("./infra/auth");
-    // await import("./infra/network");
+    // --- Core ---
+    await import("./infra/shared/dns");
+    await import("./infra/shared/stage");
+    await import("./infra/shared/secret");
+
+    // --- Apps ---
+    // Portfolio
+    // await import("./infra/portfolio/next");
+
+    // Url Shortener
+    await import("./infra/url-shortener/index");
   },
 });
