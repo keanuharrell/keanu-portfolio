@@ -32,7 +32,9 @@ export default function Home() {
               </div>
             </div>
             <h1 className="text-6xl font-bold mb-4">
-              <span className="text-gradient">ksh.link</span>
+              <span className="text-gradient">
+                {process.env.NEXT_PUBLIC_SHORT_URL ? new URL(process.env.NEXT_PUBLIC_SHORT_URL).hostname : 'ksh.link'}
+              </span>
             </h1>
             <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
               Transform your long URLs into powerful short links with analytics and custom aliases

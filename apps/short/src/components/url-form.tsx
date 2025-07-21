@@ -115,7 +115,9 @@ export function UrlForm({ onUrlCreated }: UrlFormProps) {
               <FormControl>
                 <div className="relative">
                   <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                    <span className="text-muted-foreground text-sm">ksh.link/</span>
+                    <span className="text-muted-foreground text-sm">
+                      {process.env.NEXT_PUBLIC_SHORT_URL ? new URL(process.env.NEXT_PUBLIC_SHORT_URL).hostname + '/' : 'ksh.link/'}
+                    </span>
                   </div>
                   <Input 
                     placeholder="my-custom-link" 

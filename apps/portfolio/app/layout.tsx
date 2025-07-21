@@ -26,7 +26,7 @@ export const metadata: Metadata = {
     description: "Explore my portfolio showcasing cloud-native applications, microservices architecture, and full-stack development expertise.",
     type: "website",
     locale: "en_US",
-    url: "https://keanuharrell.dev",
+    url: "https://www.keanuharrell.com",
     siteName: "Keanu Harrell Portfolio",
   },
   twitter: {

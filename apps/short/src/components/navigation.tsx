@@ -31,7 +31,7 @@ export function Navigation() {
           href="/"
           className="text-2xl font-bold text-gradient hover:opacity-80 transition-opacity"
         >
-          ksh.link
+          {process.env.NEXT_PUBLIC_SHORT_URL ? new URL(process.env.NEXT_PUBLIC_SHORT_URL).hostname : 'ksh.link'}
         </Link>
 
         <div className="hidden md:flex items-center gap-6">
@@ -41,7 +41,7 @@ export function Navigation() {
           <Link href="/dashboard" className="hover:text-primary transition-colors">
             Dashboard
           </Link>
-          <Link href="https://keanuharrell.dev" className="hover:text-primary transition-colors">
+          <Link href={process.env.NEXT_PUBLIC_PORTFOLIO_URL || "https://www.keanuharrell.com"} className="hover:text-primary transition-colors">
             Portfolio
           </Link>
         </div>
@@ -74,7 +74,7 @@ export function Navigation() {
               Dashboard
             </Link>
             <Link
-              href="https://keanuharrell.dev"
+              href={process.env.NEXT_PUBLIC_PORTFOLIO_URL || "https://www.keanuharrell.com"}
               className="hover:text-primary transition-colors"
               onClick={() => setIsMobileMenuOpen(false)}
             >

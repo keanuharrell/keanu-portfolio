@@ -16,19 +16,23 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+const getShortDomain = () => {
+  return process.env.NEXT_PUBLIC_SHORT_URL ? new URL(process.env.NEXT_PUBLIC_SHORT_URL).hostname : 'ksh.link';
+};
+
 export const metadata: Metadata = {
-  title: "ksh.link - URL Shortener by Keanu Harrell",
+  title: `${getShortDomain()} - URL Shortener by Keanu Harrell`,
   description: "Create and manage short URLs with analytics. Built by Keanu Harrell.",
   keywords: ["URL Shortener", "Link Management", "Analytics", "Short Links"],
   authors: [{ name: "Keanu Harrell" }],
   creator: "Keanu Harrell",
   openGraph: {
-    title: "ksh.link - URL Shortener",
+    title: `${getShortDomain()} - URL Shortener`,
     description: "Fast and reliable URL shortening service with analytics",
     type: "website",
     locale: "en_US",
-    url: "https://ksh.link",
-    siteName: "ksh.link",
+    url: process.env.NEXT_PUBLIC_SHORT_URL || "https://ksh.link",
+    siteName: getShortDomain(),
   },
 };
 
