@@ -29,8 +29,5 @@ export default $config({
 
     // Url Shortener
     await import("./infra/short/next");
-
-    // AI
-    await import("./infra/ai/next");
   },
 });
