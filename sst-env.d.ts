@@ -5,6 +5,10 @@
 
 declare module "sst" {
   export interface Resource {
+    "AiNext": {
+      "type": "sst.aws.Nextjs"
+      "url": string
+    }
     "GithubClientId": {
       "type": "sst.sst.Secret"
       "value": string
