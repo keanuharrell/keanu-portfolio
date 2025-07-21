@@ -21,6 +21,6 @@ export function isValidUrl(urlString: string): boolean {
 }
 
 export function formatUrl(shortCode: string, baseUrl?: string): string {
-  const appUrl = baseUrl || process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000";
+  const appUrl = baseUrl || "http://localhost:3000";
   return `${appUrl}/${shortCode}`;
 }

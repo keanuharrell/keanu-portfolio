@@ -9,3 +9,5 @@ export const subjects = createSubjects({
     picture: z.string().optional(),
   }),
 });
+
+export type User = typeof subjects.$infer.user;

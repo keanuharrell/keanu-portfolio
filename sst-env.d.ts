@@ -34,10 +34,6 @@ declare module "sst" {
       "sender": string
       "type": "sst.aws.Email"
     }
-    "ShortDynamo": {
-      "name": string
-      "type": "sst.aws.Dynamo"
-    }
     "ShortNext": {
       "type": "sst.aws.Nextjs"
       "url": string
