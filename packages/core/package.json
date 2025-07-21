@@ -18,8 +18,13 @@
     "@types/node": "^22.0.0"
   },
   "dependencies": {
+    "@aws-sdk/client-dynamodb": "^3.848.0",
+    "@aws-sdk/client-ses": "^3.848.0",
+    "@openauthjs/openauth": "^0.4.3",
+    "@portfolio/types": "workspace:*",
+    "electrodb": "^3.4.3",
     "hono": "^4.8.5",
     "jose": "^5.2.0",
-    "@portfolio/types": "workspace:*"
+    "valibot": "^1.1.0"
   }
 }

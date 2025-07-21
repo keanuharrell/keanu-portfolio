@@ -1,17 +1,18 @@
 import { sharedAuth } from "../shared/auth";
 import { domain, dns } from "../shared/dns";
 import { sharedEmail } from "../shared/email";
+import { secret } from "../shared/secret";
 import { createDynamoMonotable } from "../templates/dynamo";
 
-export const urlShortenerDynamo = createDynamoMonotable("UrlShortenerDynamo");
+export const shortDynamo = createDynamoMonotable("ShortDynamo");
 
-export const urlShortenerNext = new sst.aws.Nextjs("UrlShortenerFrontend", {
-  path: "apps/url-shortener",
+export const shortNext = new sst.aws.Nextjs("ShortNext", {
+  path: "apps/short",
   domain: {
     name: `short.${domain}`,
     dns,
   },
-  link: [urlShortenerDynamo, sharedEmail, sharedAuth],
+  link: [shortDynamo, sharedEmail, sharedAuth],
   dev: {
     url: "http://localhost:3000",
   }

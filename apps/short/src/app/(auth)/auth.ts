@@ -1,10 +1,10 @@
 import { Resource } from "sst"
-import { createClient } from "next/node_modules/@openauthjs/openauth/src/client"
+import { createClient } from "@openauthjs/openauth/client"
 import { cookies as getCookies } from "next/headers"
 
 export const client = createClient({
-  clientID: "nextjs",
-  issuer: Resource.KeanuPortfolioAuth.url,
+  clientID: "short",
+  issuer: Resource.SharedAuth.url
 })
 
 export async function setTokens(access: string, refresh: string) {

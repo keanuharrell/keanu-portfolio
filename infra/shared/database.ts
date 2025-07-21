@@ -1,3 +1,3 @@
 import { createDynamoMonotable } from "../templates/dynamo";
 
-export const sharedDatabase = createDynamoMonotable("SharedDatabase");
+export const sharedDatabase = createDynamoMonotable("SharedDynamo");

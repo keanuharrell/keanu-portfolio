@@ -28,6 +28,6 @@ export default $config({
     // await import("./infra/portfolio/next");
 
     // Url Shortener
-    await import("./infra/url-shortener/index");
+    await import("./infra/short/next");
   },
 });

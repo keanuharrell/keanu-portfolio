@@ -6,5 +6,3 @@ export const secret = {
   githubClientId: new sst.Secret("GithubClientId"),
   githubClientSecret: new sst.Secret("GithubClientSecret"),
 }
-
-export const allSecrets = [...Object.values(secret)];

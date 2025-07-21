@@ -1,91 +1,82 @@
-import { SendEmailCommand, SESv2Client } from "@aws-sdk/client-sesv2";
-import { issuer } from "@openauthjs/openauth";
-import { CodeProvider } from "@openauthjs/openauth/provider/code";
-import { GoogleOidcProvider } from "@openauthjs/openauth/provider/google";
-import { GithubProvider } from "@openauthjs/openauth/provider/github";
-import { handle } from "hono/aws-lambda";
-import { Resource } from "sst";
-import { subjects } from "./subjects";
-import { CodeUI } from "@openauthjs/openauth/ui/code";
-import { DynamoStorage } from "@openauthjs/openauth/storage/dynamo"
+import { handle } from "hono/aws-lambda"
+import { issuer } from "@openauthjs/openauth"
+import { CodeUI } from "@openauthjs/openauth/ui/code"
+import { CodeProvider } from "@openauthjs/openauth/provider/code"
+import { subjects } from "./subjects"
+import { GoogleOidcProvider } from "@openauthjs/openauth/provider/google"
+import { Resource } from "sst"
+import { GithubProvider } from "@openauthjs/openauth/provider/github"
+import { User } from "./service"
+import { SendEmailCommand, SESClient } from "@aws-sdk/client-ses"
+import { z } from "zod"
 
+const sesClient = new SESClient({
+  region: "eu-west-3",
+})
 
-const ses = new SESv2Client({});
-
-const storage = DynamoStorage({
-  table: "auth-keanuharrell",
-});
-
-export const handler = handle(
-  issuer({
-    storage,
-    subjects,
-    providers: {
-      email: CodeProvider(
-        CodeUI({
-          sendCode: async (claims, code) => {
-            console.log(claims.email, code);
-          }
-        })
-      ),
-      google: GoogleOidcProvider({
-        clientID: Resource.GoogleClientId.value,
-        scopes: ["openid", "email", "profile"],
+const app = issuer({
+  subjects,
+  providers: {
+    email: CodeProvider(
+      CodeUI({
+        sendCode: async (claims, code) => {
+          const email = z.string().email().parse(claims.email);
+          await sesClient.send(new SendEmailCommand({
+            Source: `Keanu <auth@${Resource.SharedEmail.sender}>`,
+            Destination: {
+              ToAddresses: [email],
+            },
+            Message: {
+              Subject: { Data: `Keanu Pin Code ${code}` },
+              Body: { 
+                Text: { Data: `Your code is ${code}` },
+                Html: { Data: `<p>Your code is <strong>${code}</strong></p>` },
+              },
+            },
+          }));
+        },
       }),
-      github: GithubProvider({
-        clientID: Resource.GithubClientId.value,
-        clientSecret: Resource.GithubClientSecret.value,
-        scopes: ["email", "profile"],
-      }),
-    },
-    async success(ctx, response) {
-      let email: string | undefined;
-      let name: string | undefined;
-      let picture: string | undefined;
+    ),
+    google: GoogleOidcProvider({
+      clientID: Resource.GoogleClientId.value,
+      scopes: ["openid", "email", "profile"],
+    }),
+    github: GithubProvider({
+      clientID: Resource.GithubClientId.value,
+      clientSecret: Resource.GithubClientSecret.value,
+      scopes: ["email", "profile"],
+    }),
+  },
+  success: async (ctx, response) => {
+    let email: string | undefined;
+    if (response.provider === "email") {
+      email = response.claims.email;
+    }
 
-      if (response.provider === "email") {
-        email = response.claims.email;
-      }
+    if (response.provider === "google" && response.id.email_verified) {
+      console.log(response)
+      email = response.id.email as string;
+    }
 
-      if (response.provider === "google" && response.id.email_verified) {
-        email = response.id.email as string;
-        name = response.id.name as string;
-        picture = response.id.picture as string;
-      }
+    if (response.provider === "github") {
+      console.log(response)
+    }
 
-      if (response.provider === "github") {
-        // GitHub provider returns user info in different format
-        email = (response as any).userinfo?.email as string;
-        name = (response as any).userinfo?.name as string;
-        picture = (response as any).userinfo?.avatar_url as string;
-      }
+    if (!email) throw new Error("No email found");
 
-      if (!email) {
-        throw new Error("No email found in authentication response");
-      }
+    let user = await User.getByEmail(email);
+    if (!user) {
+      user = await User.create(email);
+    }
 
-      // Here you could add database logic to create/find user
-      // For now, we'll just return the user info
-      const userID = `user_${Buffer.from(email).toString('base64').replace(/[^a-zA-Z0-9]/g, '').substring(0, 12)}`;
+    return ctx.subject("user", {
+      id: user?.id,
+      email,
+      name: user.name,
+      picture: user.pictureUrl,
+    })
+  },
+})
 
-      return ctx.subject("user", {
-        userID,
-        email,
-        name,
-        picture,
-      });
-    },
-    // async allow(input) {
-    //   const url = new URL(input.redirectURI);
-      
-    //   // Get allowed domains from environment (set in infra)
-    //   const allowedDomains = JSON.parse(
-    //     process.env.ALLOWED_REDIRECT_DOMAINS || '["localhost", "127.0.0.1"]'
-    //   );
-      
-    //   return allowedDomains.some((domain: string) => 
-    //     url.hostname === domain || url.hostname.endsWith(`.${domain}`)
-    //   );
-    // },
-  }),
-);
+
+export const handler = handle(app)

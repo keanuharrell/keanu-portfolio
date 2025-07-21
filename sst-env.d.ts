@@ -21,11 +21,11 @@ declare module "sst" {
       "type": "sst.sst.Secret"
       "value": string
     }
-    "KeanuPortfolioAuth": {
+    "SharedAuth": {
       "type": "sst.aws.Auth"
       "url": string
     }
-    "SharedDatabase": {
+    "SharedDynamo": {
       "name": string
       "type": "sst.aws.Dynamo"
     }
@@ -34,11 +34,11 @@ declare module "sst" {
       "sender": string
       "type": "sst.aws.Email"
     }
-    "UrlShortenerDynamo": {
+    "ShortDynamo": {
       "name": string
       "type": "sst.aws.Dynamo"
     }
-    "UrlShortenerFrontend": {
+    "ShortNext": {
       "type": "sst.aws.Nextjs"
       "url": string
     }
