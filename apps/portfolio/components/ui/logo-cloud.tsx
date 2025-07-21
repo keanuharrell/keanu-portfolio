@@ -1,6 +1,7 @@
 "use client"
 
 import { motion } from "framer-motion"
+import Image from "next/image"
 import { cn } from "@/lib/utils"
 
 interface LogoItem {
@@ -108,17 +109,20 @@ export function LogoCloud({
 function LogoItem({ logo }: { logo: LogoItem }) {
   return (
     <div className="flex flex-col items-center justify-center w-32 h-20 px-4 py-3 bg-card/80 backdrop-blur-sm rounded-lg border border-border/50 hover:shadow-md hover:bg-card transition-all duration-300">
-      <img
-        src={logo.logo}
-        alt={logo.name}
-        className="w-8 h-8 object-contain filter opacity-70 hover:opacity-100 transition-all duration-300 mb-1"
-        onError={(e) => {
-          const target = e.target as HTMLImageElement
-          target.style.display = 'none'
-          target.nextElementSibling?.classList.remove('text-xs')
-          target.nextElementSibling?.classList.add('text-sm', 'font-medium')
-        }}
-      />
+      <div className="relative w-8 h-8 mb-1">
+        <Image
+          src={logo.logo}
+          alt={`${logo.name} logo`}
+          width={32}
+          height={32}
+          className="object-contain filter opacity-70 hover:opacity-100 transition-all duration-300"
+          loading="lazy"
+          onError={(e) => {
+            const target = e.target as HTMLImageElement
+            target.style.display = 'none'
+          }}
+        />
+      </div>
       <span className="text-xs text-muted-foreground text-center leading-tight">
         {logo.name}
       </span>

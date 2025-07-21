@@ -1,6 +1,7 @@
 "use client"
 
 import { motion } from "framer-motion"
+import Image from "next/image"
 import { ReactNode } from "react"
 import { cn } from "@/lib/utils"
 
@@ -48,10 +49,13 @@ export function SkiperCard({
       {/* Background image */}
       {image && (
         <div className="absolute inset-0 z-0">
-          <img 
+          <Image 
             src={image} 
-            alt="" 
-            className="w-full h-full object-cover opacity-20"
+            alt=""
+            fill
+            className="object-cover opacity-20"
+            loading="lazy"
+            sizes="(max-width: 768px) 100vw, 50vw"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-background/80 to-transparent" />
         </div>

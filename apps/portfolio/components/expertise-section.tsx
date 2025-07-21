@@ -99,7 +99,7 @@ resource "aws_lambda_function" "api" {
   environment {
     variables = {
       DATABASE_URL = aws_rds_cluster.main.endpoint
-      JWT_SECRET   = var.jwt_secret
+      JWT_SECRET   = var.app_jwt_secret
     }
   }
 }

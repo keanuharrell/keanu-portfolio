@@ -9,21 +9,24 @@ export const client = createClient({
 
 export async function setTokens(access: string, refresh: string) {
   const cookies = await getCookies()
+  const isProduction = process.env.NODE_ENV === 'production'
 
   cookies.set({
     name: "access_token",
     value: access,
     httpOnly: true,
-    sameSite: "lax",
+    secure: isProduction,
+    sameSite: "strict",
     path: "/",
-    maxAge: 34560000,
+    maxAge: 3600, // 1 hour instead of 400 days
   })
   cookies.set({
     name: "refresh_token",
     value: refresh,
     httpOnly: true,
-    sameSite: "lax",
+    secure: isProduction,
+    sameSite: "strict",
     path: "/",
-    maxAge: 34560000,
+    maxAge: 604800, // 7 days instead of 400 days
   })
 }

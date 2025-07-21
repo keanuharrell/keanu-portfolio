@@ -52,9 +52,17 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
+          {/* Skip to main content link */}
+          <a 
+            href="#main-content" 
+            className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 focus:px-6 focus:py-2 focus:bg-primary focus:text-primary-foreground focus:rounded-md focus:shadow-lg transition-all duration-200"
+          >
+            Skip to main content
+          </a>
+          
           <div className="min-h-screen flex flex-col w-full max-w-full overflow-x-hidden">
             <Navigation />
-            <main className="flex-1 w-full max-w-full overflow-x-hidden pt-20">
+            <main id="main-content" className="flex-1 w-full max-w-full overflow-x-hidden pt-20">
               {children}
             </main>
             <Footer />

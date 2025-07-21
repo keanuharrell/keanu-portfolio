@@ -10,4 +10,12 @@ export const subjects = createSubjects({
   }),
 });
 
-export type User = typeof subjects.$infer.user;
+export type User = {
+  type: "user";
+  properties: {
+    id: string;
+    email: string;
+    name?: string;
+    picture?: string;
+  };
+};
