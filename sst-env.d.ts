@@ -21,7 +21,7 @@ declare module "sst" {
       "type": "sst.sst.Secret"
       "value": string
     }
-    "Portfolio": {
+    "PortfolioNext": {
       "type": "sst.aws.Nextjs"
       "url": string
     }
