@@ -25,7 +25,7 @@ export default $config({
 
     // --- Apps ---
     // Portfolio
-    // await import("./infra/portfolio/next");
+    await import("./infra/portfolio/next");
 
     // Url Shortener
     await import("./infra/short/next");

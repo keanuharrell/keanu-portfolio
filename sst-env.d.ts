@@ -21,6 +21,10 @@ declare module "sst" {
       "type": "sst.sst.Secret"
       "value": string
     }
+    "Portfolio": {
+      "type": "sst.aws.Nextjs"
+      "url": string
+    }
     "SharedAuth": {
       "type": "sst.aws.Auth"
       "url": string

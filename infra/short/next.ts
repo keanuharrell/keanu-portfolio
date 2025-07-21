@@ -12,6 +12,6 @@ export const shortNext = new sst.aws.Nextjs("ShortNext", {
   },
   link: [sharedDatabase, sharedEmail, sharedAuth],
   dev: {
-    url: "http://localhost:3000",
+    url: "http://localhost:3001",
   },
 });
