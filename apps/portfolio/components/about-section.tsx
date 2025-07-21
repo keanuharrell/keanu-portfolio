@@ -1,109 +1,53 @@
 "use client"
 
 import { motion } from "framer-motion"
-import { MinimalCard } from "@/components/ui/minimal-card"
-import { Code, Cloud, Database, Users } from "lucide-react"
 
 export function AboutSection() {
   return (
-    <section id="about" className="py-20">
+    <section id="about" className="py-32">
       <div className="max-w-4xl mx-auto px-6">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
+          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
           viewport={{ once: true }}
-          className="text-center mb-12"
+          className="space-y-12"
         >
-          <h2 className="text-3xl md:text-4xl font-bold mb-6">
-            About Me
-          </h2>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Passionate developer with solid experience in building modern web applications 
-            and scalable cloud architectures.
-          </p>
+          <h2 className="text-3xl md:text-4xl font-semibold">About</h2>
+          
+          <div className="space-y-6 text-lg text-muted-foreground leading-relaxed">
+            <p>
+              I'm a Full Stack Engineer with over 3 years of experience building scalable web applications 
+              and cloud infrastructure. I specialize in modern JavaScript frameworks, cloud architecture, 
+              and creating exceptional user experiences.
+            </p>
+            
+            <p>
+              My expertise spans from frontend development with React and TypeScript to backend systems 
+              with Node.js and Go, deployed on AWS infrastructure. I'm passionate about clean code, 
+              performance optimization, and continuous learning.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 pt-8">
+            <div>
+              <div className="text-2xl font-semibold">3+</div>
+              <div className="text-sm text-muted-foreground mt-1">Years Experience</div>
+            </div>
+            <div>
+              <div className="text-2xl font-semibold">50+</div>
+              <div className="text-sm text-muted-foreground mt-1">Projects Completed</div>
+            </div>
+            <div>
+              <div className="text-2xl font-semibold">10+</div>
+              <div className="text-sm text-muted-foreground mt-1">Technologies</div>
+            </div>
+            <div>
+              <div className="text-2xl font-semibold">5⭐</div>
+              <div className="text-sm text-muted-foreground mt-1">Client Reviews</div>
+            </div>
+          </div>
         </motion.div>
-
-        <div className="grid md:grid-cols-2 gap-8 items-start">
-          <motion.div
-            initial={{ opacity: 0, x: -20 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            viewport={{ once: true }}
-          >
-            <MinimalCard>
-              <div className="space-y-6">
-                <p className="text-lg leading-relaxed">
-                  I'm a full-stack developer with 3+ years of experience in designing 
-                  and building cloud-native solutions. My expertise spans the entire 
-                  development lifecycle, from modern frontend to microservices architectures.
-                </p>
-                
-                <p className="text-lg leading-relaxed">
-                  Passionate about technological innovation, I specialize in creating 
-                  performant, scalable applications focused on user experience. 
-                  I enjoy solving complex problems and transforming ideas into concrete solutions.
-                </p>
-              </div>
-            </MinimalCard>
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0, x: 20 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.6, delay: 0.4 }}
-            viewport={{ once: true }}
-            className="grid gap-4"
-          >
-            <MinimalCard className="group">
-              <div className="flex items-center gap-4">
-                <div className="p-2 rounded-lg bg-primary/10 text-primary">
-                  <Code className="w-5 h-5" />
-                </div>
-                <div>
-                  <h4 className="font-medium mb-1">Frontend</h4>
-                  <p className="text-sm text-muted-foreground">React, TypeScript, Next.js</p>
-                </div>
-              </div>
-            </MinimalCard>
-
-            <MinimalCard className="group">
-              <div className="flex items-center gap-4">
-                <div className="p-2 rounded-lg bg-primary/10 text-primary">
-                  <Database className="w-5 h-5" />
-                </div>
-                <div>
-                  <h4 className="font-medium mb-1">Backend</h4>
-                  <p className="text-sm text-muted-foreground">Node.js, Golang, Python</p>
-                </div>
-              </div>
-            </MinimalCard>
-
-            <MinimalCard className="group">
-              <div className="flex items-center gap-4">
-                <div className="p-2 rounded-lg bg-primary/10 text-primary">
-                  <Cloud className="w-5 h-5" />
-                </div>
-                <div>
-                  <h4 className="font-medium mb-1">Cloud & DevOps</h4>
-                  <p className="text-sm text-muted-foreground">AWS, Docker, Kubernetes</p>
-                </div>
-              </div>
-            </MinimalCard>
-
-            <MinimalCard className="group">
-              <div className="flex items-center gap-4">
-                <div className="p-2 rounded-lg bg-primary/10 text-primary">
-                  <Users className="w-5 h-5" />
-                </div>
-                <div>
-                  <h4 className="font-medium mb-1">Collaboration</h4>
-                  <p className="text-sm text-muted-foreground">Agile, Leadership, Mentoring</p>
-                </div>
-              </div>
-            </MinimalCard>
-          </motion.div>
-        </div>
       </div>
     </section>
   )

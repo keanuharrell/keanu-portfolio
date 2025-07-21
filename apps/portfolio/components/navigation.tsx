@@ -1,48 +1,28 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import { Menu, X, User, LogOut } from "lucide-react"
+import { Menu, X } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { ThemeToggle } from "@/components/ui/theme-toggle"
-import { auth, login, logout } from "@/app/(auth)/actions"
-import type { User as AuthUser } from "@portfolio/core"
 
 export function Navigation() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
-  const [user, setUser] = useState<AuthUser | false | null>(null)
-  const [loading, setLoading] = useState(true)
+  const [isScrolled, setIsScrolled] = useState(false)
 
   const navItems = [
     { href: "#about", label: "About" },
-    { href: "#skills", label: "Skills" },
-    { href: "#expertise", label: "Expertise" },
+    { href: "#experience", label: "Experience" },
     { href: "#projects", label: "Projects" },
     { href: "#contact", label: "Contact" },
   ]
 
   useEffect(() => {
-    checkAuth()
-  }, [])
-
-  const checkAuth = async () => {
-    try {
-      const authResult = await auth()
-      setUser(authResult)
-    } catch (error) {
-      console.error("Auth check failed:", error)
-      setUser(false)
-    } finally {
-      setLoading(false)
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 10)
     }
-  }
-
-  const handleLogin = async () => {
-    await login()
-  }
-
-  const handleLogout = async () => {
-    await logout()
-  }
+    window.addEventListener("scroll", handleScroll)
+    return () => window.removeEventListener("scroll", handleScroll)
+  }, [])
 
   const scrollToSection = (href: string) => {
     const element = document.querySelector(href)
@@ -53,12 +33,14 @@ export function Navigation() {
   }
 
   return (
-    <nav className="fixed top-0 w-full z-50 bg-background/80 backdrop-blur-sm border-b">
+    <nav className={`fixed top-0 w-full z-50 transition-all duration-300 ${
+      isScrolled ? 'bg-background/80 backdrop-blur-custom' : 'bg-transparent'
+    }`}>
       <div className="max-w-7xl mx-auto px-6">
         <div className="flex justify-between items-center h-16">
           <button 
-            onClick={() => scrollToSection('#hero')}
-            className="text-xl font-bold hover:text-primary transition-colors"
+            onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+            className="text-lg font-medium hover:opacity-70 transition-opacity"
           >
             Keanu Harrell
           </button>
@@ -69,107 +51,42 @@ export function Navigation() {
               <button
                 key={item.href}
                 onClick={() => scrollToSection(item.href)}
-                className="text-muted-foreground hover:text-foreground transition-colors"
+                className="text-sm text-muted-foreground hover:text-foreground transition-colors"
               >
                 {item.label}
               </button>
             ))}
             
-            {/* Auth Section */}
-            <div className="flex items-center space-x-4">
-              {loading ? (
-                <div className="w-8 h-8 animate-pulse bg-muted rounded-full" />
-              ) : user ? (
-                <div className="flex items-center space-x-2">
-                  <div className="flex items-center space-x-2 px-3 py-1 bg-muted/50 rounded-full">
-                    <User className="w-4 h-4" />
-                    <span className="text-sm font-medium">
-                      {user.properties.email?.split('@')[0] || user.properties.id}
-                    </span>
-                  </div>
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    onClick={handleLogout}
-                    className="text-muted-foreground hover:text-foreground"
-                  >
-                    <LogOut className="w-4 h-4" />
-                  </Button>
-                </div>
-              ) : (
-                <Button
-                  variant="outline"
-                  size="sm"
-                  onClick={handleLogin}
-                  className="flex items-center space-x-2"
-                >
-                  <User className="w-4 h-4" />
-                  <span>Login</span>
-                </Button>
-              )}
-              <ThemeToggle />
-            </div>
+            <ThemeToggle />
           </div>
 
           {/* Mobile menu button */}
-          <div className="md:hidden flex items-center gap-2">
-            {!loading && user && (
-              <div className="flex items-center space-x-1 px-2 py-1 bg-muted/50 rounded-full">
-                <User className="w-3 h-3" />
-                <span className="text-xs font-medium">
-                  {user.properties.email?.split('@')[0] || user.properties.id}
-                </span>
-              </div>
-            )}
+          <div className="md:hidden flex items-center gap-4">
             <ThemeToggle />
             <Button
               variant="ghost"
-              size="sm"
+              size="icon"
               onClick={() => setIsMenuOpen(!isMenuOpen)}
+              className="relative w-10 h-10 p-0"
             >
-              {isMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+              {isMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
             </Button>
           </div>
         </div>
 
         {/* Mobile Navigation */}
         {isMenuOpen && (
-          <div className="md:hidden py-4 border-t">
+          <div className="md:hidden py-6 border-t animate-in">
             <div className="flex flex-col space-y-4">
               {navItems.map((item) => (
                 <button
                   key={item.href}
                   onClick={() => scrollToSection(item.href)}
-                  className="text-muted-foreground hover:text-foreground transition-colors px-4 py-2 text-left"
+                  className="text-sm text-muted-foreground hover:text-foreground transition-colors px-2 py-2 text-left"
                 >
                   {item.label}
                 </button>
               ))}
-              
-              {/* Mobile Auth Section */}
-              <div className="px-4 pt-2 border-t">
-                {loading ? (
-                  <div className="w-8 h-8 animate-pulse bg-muted rounded-full" />
-                ) : user ? (
-                  <Button
-                    variant="ghost"
-                    onClick={handleLogout}
-                    className="w-full justify-start text-muted-foreground hover:text-foreground"
-                  >
-                    <LogOut className="w-4 h-4 mr-2" />
-                    Logout
-                  </Button>
-                ) : (
-                  <Button
-                    variant="outline"
-                    onClick={handleLogin}
-                    className="w-full justify-start"
-                  >
-                    <User className="w-4 h-4 mr-2" />
-                    Login
-                  </Button>
-                )}
-              </div>
             </div>
           </div>
         )}

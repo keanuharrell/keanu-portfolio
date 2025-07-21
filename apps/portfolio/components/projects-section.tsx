@@ -1,154 +1,112 @@
 "use client"
 
 import { motion } from "framer-motion"
-import { ExternalLink, Github } from "lucide-react"
-import { Button } from "@/components/ui/button"
-import { Badge } from "@/components/ui/badge"
-import { AnimatedButton } from "@/components/ui/animated-button"
-import { SkiperCard } from "@/components/ui/skiper-card"
+import { ArrowUpRight, Github } from "lucide-react"
+import { Card } from "@/components/ui/card"
+
+const projects = [
+  {
+    title: "E-Commerce Platform",
+    description: "Full-stack marketplace with real-time inventory management and payment processing",
+    technologies: ["React", "Node.js", "PostgreSQL", "Stripe"],
+    github: "https://github.com/keanuharrell",
+    demo: "https://demo.example.com",
+    year: "2024"
+  },
+  {
+    title: "Cloud Infrastructure Automation",
+    description: "Terraform-based infrastructure automation for multi-cloud deployments",
+    technologies: ["Terraform", "AWS", "Docker", "GitHub Actions"],
+    github: "https://github.com/keanuharrell",
+    year: "2023"
+  },
+  {
+    title: "Real-time Analytics Dashboard",
+    description: "Data visualization platform processing millions of events per day",
+    technologies: ["TypeScript", "React", "D3.js", "Redis"],
+    github: "https://github.com/keanuharrell",
+    demo: "https://demo.example.com",
+    year: "2023"
+  },
+  {
+    title: "URL Shortener Service",
+    description: "High-performance URL shortening service with analytics and custom domains",
+    technologies: ["Next.js", "DynamoDB", "AWS Lambda", "CloudFront"],
+    github: "https://github.com/keanuharrell",
+    demo: "https://ksh.link",
+    year: "2024"
+  }
+]
 
 export function ProjectsSection() {
-  const projects = [
-    {
-      title: "Project 1",
-      description: "Project description coming soon. You can detail your achievements and the technologies used here.",
-      technologies: ["React", "TypeScript", "Next.js"],
-      github: "#",
-      demo: "#",
-      image: "/api/placeholder/400/250",
-      likes: 12,
-      views: 156
-    },
-    {
-      title: "Project 2", 
-      description: "Project description coming soon. You can detail your achievements and the technologies used here.",
-      technologies: ["Node.js", "PostgreSQL", "Docker"],
-      github: "#",
-      image: "/api/placeholder/400/250",
-      likes: 8,
-      views: 89
-    },
-    {
-      title: "Project 3",
-      description: "Project description coming soon. You can detail your achievements and the technologies used here.",
-      technologies: ["Python", "AWS", "Kubernetes"],
-      github: "#",
-      demo: "#",
-      image: "/api/placeholder/400/250",
-      likes: 15,
-      views: 234
-    }
-  ]
-
   return (
-    <section id="projects" className="py-20">
+    <section id="projects" className="py-32">
       <div className="max-w-6xl mx-auto px-6">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
+          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
           viewport={{ once: true }}
-          className="text-center mb-12"
+          className="space-y-16"
         >
-          <h2 className="text-3xl md:text-4xl font-bold mb-6">
-            My Projects
-          </h2>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            A selection of projects that demonstrate my technical expertise
-          </p>
-        </motion.div>
+          <h2 className="text-3xl md:text-4xl font-semibold">Projects</h2>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {projects.map((project, index) => (
-            <motion.div
-              key={index}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: index * 0.1 }}
-              viewport={{ once: true }}
-            >
-              <SkiperCard
-                title={project.title}
-                description={project.description}
-                image={project.image}
-                gradient={index % 2 === 0}
-                className="h-full"
+          <div className="grid md:grid-cols-2 gap-6">
+            {projects.map((project, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: index * 0.1, ease: [0.16, 1, 0.3, 1] }}
+                viewport={{ once: true }}
               >
-                <div className="space-y-4">
-                  {/* Stats */}
-                  <div className="flex gap-4 justify-between items-center">
-                    <div className="flex gap-2">
-                      <AnimatedButton
-                        type="view"
-                        count={project.views}
-                        className="text-xs"
-                      />
-                      <AnimatedButton
-                        type="like"
-                        count={project.likes}
-                        className="text-xs"
-                      />
-                    </div>
-                  </div>
-
-                  {/* Technologies */}
-                  <div className="flex flex-wrap gap-2">
-                    {project.technologies.map((tech, techIndex) => (
-                      <Badge
-                        key={techIndex}
-                        variant="secondary"
-                        className="text-xs"
-                      >
-                        {tech}
-                      </Badge>
-                    ))}
+                <Card className="p-6 h-full flex flex-col group hover:shadow-lg transition-all duration-300">
+                  <div className="flex items-start justify-between mb-4">
+                    <h3 className="text-xl font-semibold">{project.title}</h3>
+                    <span className="text-sm text-muted-foreground">{project.year}</span>
                   </div>
                   
-                  {/* Actions */}
-                  <div className="flex gap-3 pt-2">
-                    <Button
-                      variant="outline"
-                      size="sm"
-                      className="flex-1"
-                      onClick={() => window.open(project.github, '_blank')}
-                    >
-                      <Github className="w-4 h-4 mr-2" />
-                      Code
-                    </Button>
+                  <p className="text-muted-foreground mb-6 flex-grow">
+                    {project.description}
+                  </p>
+                  
+                  <div className="space-y-4">
+                    <div className="flex flex-wrap gap-2">
+                      {project.technologies.map((tech) => (
+                        <span key={tech} className="text-sm text-muted-foreground">
+                          {tech}
+                        </span>
+                      ))}
+                    </div>
                     
-                    {project.demo && (
-                      <Button
-                        variant="outline"
-                        size="sm"
-                        className="flex-1"
-                        onClick={() => window.open(project.demo, '_blank')}
+                    <div className="flex gap-4">
+                      <a
+                        href={project.github}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex items-center gap-2 text-sm hover:text-primary transition-colors"
                       >
-                        <ExternalLink className="w-4 h-4 mr-2" />
-                        Demo
-                      </Button>
-                    )}
+                        <Github className="w-4 h-4" />
+                        <span>View Code</span>
+                      </a>
+                      
+                      {project.demo && (
+                        <a
+                          href={project.demo}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="flex items-center gap-2 text-sm hover:text-primary transition-colors"
+                        >
+                          <span>Live Demo</span>
+                          <ArrowUpRight className="w-4 h-4" />
+                        </a>
+                      )}
+                    </div>
                   </div>
-                </div>
-              </SkiperCard>
-            </motion.div>
-          ))}
-        </div>
-
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.3 }}
-          viewport={{ once: true }}
-          className="text-center mt-12"
-        >
-          <Button
-            variant="outline"
-            size="lg"
-            onClick={() => window.open('https://github.com/keanuharrell', '_blank')}
-          >
-            <Github className="w-5 h-5 mr-2" />
-            View more on GitHub
-          </Button>
+                </Card>
+              </motion.div>
+            ))}
+          </div>
         </motion.div>
       </div>
     </section>

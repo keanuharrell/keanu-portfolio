@@ -1,104 +1,73 @@
 "use client"
 
 import { motion } from "framer-motion"
-import { Card, CardContent } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
 import { Mail, Github, Linkedin, MapPin } from "lucide-react"
 
 export function ContactSection() {
   return (
-    <section id="contact" className="py-20 bg-muted/30">
+    <section id="contact" className="py-32 bg-muted/30">
       <div className="max-w-4xl mx-auto px-6">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
+          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
           viewport={{ once: true }}
-          className="text-center mb-12"
+          className="space-y-16"
         >
-          <h2 className="text-3xl md:text-4xl font-bold mb-6">
-            Contact Me
-          </h2>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Feel free to reach out to discuss your projects or for any questions
-          </p>
-        </motion.div>
+          <div className="space-y-4">
+            <h2 className="text-3xl md:text-4xl font-semibold">Contact</h2>
+            <p className="text-lg text-muted-foreground">
+              Let's work together on your next project.
+            </p>
+          </div>
 
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.2 }}
-          viewport={{ once: true }}
-          className="grid md:grid-cols-2 gap-8"
-        >
-          <Card>
-            <CardContent className="p-8">
-              <div className="space-y-6">
-                <div className="flex items-center gap-4">
-                  <div className="p-3 rounded-lg bg-primary/10">
-                    <Mail className="h-5 w-5 text-primary" />
-                  </div>
-                  <div>
-                    <h3 className="font-semibold">Email</h3>
-                    <a 
-                      href="mailto:keanuharrell@icloud.com"
-                      className="text-muted-foreground hover:text-primary transition-colors"
-                    >
-                      keanuharrell@icloud.com
-                    </a>
-                  </div>
-                </div>
+          <div className="grid md:grid-cols-2 gap-12">
+            <div className="space-y-6">
+              <a 
+                href="mailto:keanuharrell@icloud.com"
+                className="flex items-center gap-4 text-muted-foreground hover:text-foreground transition-colors group"
+              >
+                <Mail className="h-5 w-5" />
+                <span className="group-hover:underline">keanuharrell@icloud.com</span>
+              </a>
 
-                <div className="flex items-center gap-4">
-                  <div className="p-3 rounded-lg bg-primary/10">
-                    <MapPin className="h-5 w-5 text-primary" />
-                  </div>
-                  <div>
-                    <h3 className="font-semibold">Location</h3>
-                    <p className="text-muted-foreground">Warsaw Poland / France</p>
-                  </div>
-                </div>
+              <a 
+                href="https://github.com/keanuharrell"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-4 text-muted-foreground hover:text-foreground transition-colors group"
+              >
+                <Github className="h-5 w-5" />
+                <span className="group-hover:underline">github.com/keanuharrell</span>
+              </a>
+
+              <a 
+                href="https://linkedin.com/in/keanu-harrell"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-4 text-muted-foreground hover:text-foreground transition-colors group"
+              >
+                <Linkedin className="h-5 w-5" />
+                <span className="group-hover:underline">linkedin.com/in/keanu-harrell</span>
+              </a>
+
+              <div className="flex items-center gap-4 text-muted-foreground">
+                <MapPin className="h-5 w-5" />
+                <span>Warsaw, Poland / France</span>
               </div>
-            </CardContent>
-          </Card>
+            </div>
 
-          <Card>
-            <CardContent className="p-8">
-              <div className="space-y-6">
-                <h3 className="font-semibold mb-4">Find me on</h3>
-                
-                <div className="flex flex-col gap-3">
-                  <Button
-                    variant="outline"
-                    className="justify-start"
-                    onClick={() => window.open('https://github.com/keanuharrell', '_blank')}
-                  >
-                    <Github className="h-5 w-5 mr-3" />
-                    GitHub
-                  </Button>
-                  
-                  <Button
-                    variant="outline"
-                    className="justify-start"
-                    onClick={() => window.open('https://linkedin.com/in/keanu-harrell', '_blank')}
-                  >
-                    <Linkedin className="h-5 w-5 mr-3" />
-                    LinkedIn
-                  </Button>
-                </div>
-
-                <div className="pt-4">
-                  <div className="flex items-center gap-2 mb-2">
-                    <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />
-                    <span className="text-sm font-medium">Available for new projects</span>
-                  </div>
-                  <p className="text-sm text-muted-foreground">
-                    Response within 24h
-                  </p>
-                </div>
+            <div className="space-y-4">
+              <div className="flex items-center gap-3">
+                <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />
+                <span className="font-medium">Available for freelance work</span>
               </div>
-            </CardContent>
-          </Card>
+              <p className="text-muted-foreground">
+                I'm currently taking on new projects and would love to hear about your ideas. 
+                Feel free to reach out if you'd like to work together.
+              </p>
+            </div>
+          </div>
         </motion.div>
       </div>
     </section>

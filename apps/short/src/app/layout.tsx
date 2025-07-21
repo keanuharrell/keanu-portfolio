@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import { ThemeProvider } from "@/components/theme-provider";
+import { Navigation } from "@/components/navigation";
+import { Footer } from "@/components/footer";
 import { Toaster } from "@/components/ui/sonner";
 
 const geistSans = Geist({
@@ -14,8 +17,19 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "URL Shortener",
-  description: "Create and manage short URLs with analytics",
+  title: "ksh.link - URL Shortener by Keanu Harrell",
+  description: "Create and manage short URLs with analytics. Built by Keanu Harrell.",
+  keywords: ["URL Shortener", "Link Management", "Analytics", "Short Links"],
+  authors: [{ name: "Keanu Harrell" }],
+  creator: "Keanu Harrell",
+  openGraph: {
+    title: "ksh.link - URL Shortener",
+    description: "Fast and reliable URL shortening service with analytics",
+    type: "website",
+    locale: "en_US",
+    url: "https://ksh.link",
+    siteName: "ksh.link",
+  },
 };
 
 export default function RootLayout({
@@ -24,12 +38,25 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased overflow-x-hidden`}
       >
-        {children}
-        <Toaster />
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="dark"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <div className="min-h-screen flex flex-col w-full max-w-full overflow-x-hidden">
+            <Navigation />
+            <main className="flex-1 w-full max-w-full overflow-x-hidden pt-20">
+              {children}
+            </main>
+            <Footer />
+          </div>
+          <Toaster />
+        </ThemeProvider>
       </body>
     </html>
   );
