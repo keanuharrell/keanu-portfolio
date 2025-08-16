@@ -21,7 +21,7 @@
     "typecheck": "tsc --noEmit",
     "lint": "bun lint",
     "test": "bun test",
-    "deploy:prod": "sst deploy --stage prod"
+    "deploy:prod": "sst deploy --stage production"
   },
   "devDependencies": {
     "@tsconfig/node22": "^22.0.2",

@@ -5,45 +5,13 @@
 
 declare module "sst" {
   export interface Resource {
-    "AiNext": {
-      "type": "sst.aws.Nextjs"
-      "url": string
-    }
-    "GithubClientId": {
-      "type": "sst.sst.Secret"
-      "value": string
-    }
-    "GithubClientSecret": {
-      "type": "sst.sst.Secret"
-      "value": string
-    }
-    "GoogleClientId": {
-      "type": "sst.sst.Secret"
-      "value": string
-    }
-    "GoogleClientSecret": {
-      "type": "sst.sst.Secret"
-      "value": string
-    }
-    "PortfolioNext": {
-      "type": "sst.aws.Nextjs"
-      "url": string
-    }
-    "SharedAuth": {
-      "type": "sst.aws.Auth"
-      "url": string
-    }
-    "SharedDynamo": {
-      "name": string
-      "type": "sst.aws.Dynamo"
-    }
-    "SharedEmail": {
+    "Email": {
       "configSet": string
       "sender": string
       "type": "sst.aws.Email"
     }
-    "ShortNext": {
-      "type": "sst.aws.Nextjs"
+    "Portfolio": {
+      "type": "sst.aws.Astro"
       "url": string
     }
   }

@@ -17,17 +17,8 @@ export default $config({
     };
   },
   async run() {
-    // --- Core ---
-    await import("./infra/shared/dns");
-    await import("./infra/shared/stage");
-    await import("./infra/shared/secret");
-    await import("./infra/shared/auth");
-
-    // --- Apps ---
-    // Portfolio
-    await import("./infra/portfolio/next");
-
-    // Url Shortener
-    await import("./infra/short/next");
+    await import("./infra/dns");
+    await import("./infra/email");
+    await import("./infra/portfolio");
   },
 });
