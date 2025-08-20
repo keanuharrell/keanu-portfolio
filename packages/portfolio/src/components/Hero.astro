@@ -1,0 +1,157 @@
+---
+// Hero section for main page
+---
+
+<section class="section hero" id="hero">
+  <div class="hero-content">
+    <div class="hero-intro">Hey there! 👋</div>
+    <h1 class="hero-title">
+      <span class="line">I'm Keanu</span>
+      <span class="line">Harrell</span>
+    </h1>
+    <p class="hero-subtitle">
+      A former firefighter who traded saving lives on the street<br>
+      for building systems that scale to help millions
+    </p>
+    <div class="hero-cta">
+      <a href="#values" class="cta-button">
+        <span>Get to know me</span>
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M7 13l5 5 5-5M7 6l5 5 5-5"/>
+        </svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+<style>
+  /* Hero Section */
+  .hero {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-content {
+    text-align: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 20;
+  }
+
+  .hero-intro {
+    font-size: clamp(1rem, 2vw, 1.2rem);
+    color: #ff6b35;
+    margin-bottom: 1rem;
+    opacity: 0;
+    transform: translateY(30px);
+    animation: fadeInUp 1s ease 0.5s forwards;
+  }
+
+  .hero-title {
+    font-size: clamp(3rem, 8vw, 8rem);
+    font-weight: 700;
+    line-height: 0.9;
+    margin-bottom: 2rem;
+    color: #ffffff;
+    position: relative;
+    z-index: 10;
+    text-shadow: 0 0 30px rgba(255, 107, 53, 0.3);
+  }
+
+  .hero-title .line {
+    display: block;
+    opacity: 0;
+    transform: translateX(-100px);
+  }
+
+  .hero-title .line:nth-child(1) {
+    animation: slideInLeft 1s ease 1s forwards;
+  }
+
+  .hero-title .line:nth-child(2) {
+    animation: slideInLeft 1s ease 1.3s forwards;
+  }
+
+  .hero-subtitle {
+    font-size: clamp(1.2rem, 3vw, 1.8rem);
+    color: rgba(255, 255, 255, 0.8);
+    max-width: 900px;
+    margin: 0 auto 3rem;
+    opacity: 0;
+    transform: translateY(30px);
+    animation: fadeInUp 1s ease 2s forwards;
+    font-weight: 300;
+    line-height: 1.5;
+  }
+
+  .hero-cta {
+    opacity: 0;
+    transform: translateY(30px);
+    animation: fadeInUp 1s ease 2.5s forwards;
+  }
+
+  .cta-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 1rem 2rem;
+    background: transparent;
+    border: 2px solid #ff6b35;
+    color: #ff6b35;
+    text-decoration: none;
+    border-radius: 50px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    transition: all 0.4s ease;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .cta-button::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    background: #ff6b35;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    transition: all 0.6s ease;
+    z-index: -1;
+  }
+
+  .cta-button:hover::before {
+    width: 300px;
+    height: 300px;
+  }
+
+  .cta-button:hover {
+    color: white;
+    transform: translateY(-3px);
+  }
+
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes slideInLeft {
+    from {
+      opacity: 0;
+      transform: translateX(-100px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+</style>

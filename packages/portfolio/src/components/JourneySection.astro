@@ -1,0 +1,145 @@
+---
+// Journey timeline section
+---
+
+<section class="section journey-section" id="journey">
+  <div class="journey-content">
+    <h2 class="journey-title reveal">My Journey</h2>
+    
+    <div class="journey-timeline">
+      <div class="journey-item reveal">
+        <div class="journey-year">2019</div>
+        <div class="journey-story">
+          <h3>🚒 The Beginning</h3>
+          <p>
+            Started as volunteer firefighter while studying CS. 
+            Learned that saving lives and solving problems both need clear thinking under pressure.
+          </p>
+        </div>
+      </div>
+      
+      <div class="journey-item reveal">
+        <div class="journey-year">2022</div>
+        <div class="journey-story">
+          <h3>☁️ Into the Cloud</h3>
+          <p>
+            Began DevOps at Orisha Healthcare. Reliable infrastructure in healthcare 
+            isn't just uptime - it's patients getting care when they need it.
+          </p>
+        </div>
+      </div>
+      
+      <div class="journey-item reveal">
+        <div class="journey-year">2024</div>
+        <div class="journey-story">
+          <h3>🌍 Global Perspective</h3>
+          <p>
+            Research in Poland showed how tech connects cultures. 
+            Science is universal, human stories make it meaningful.
+          </p>
+        </div>
+      </div>
+      
+      <div class="journey-item reveal">
+        <div class="journey-year">Now</div>
+        <div class="journey-story">
+          <h3>🚀 Building the Future</h3>
+          <p>
+            CTO at Untitled, making sustainability tech accessible. 
+            Protecting our planet is the ultimate rescue mission.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  /* Journey timeline */
+  .journey-section {
+    background: linear-gradient(
+      135deg,
+      rgba(255, 107, 53, 0.05) 0%,
+      rgba(0, 78, 137, 0.03) 100%
+    );
+  }
+
+  .journey-content {
+    max-width: 900px;
+    margin: 0 auto;
+    text-align: left;
+  }
+
+  .journey-title {
+    font-size: clamp(2.5rem, 6vw, 4rem);
+    margin-bottom: 1.5rem;
+    color: #ffffff;
+    text-align: center;
+  }
+
+  .journey-timeline {
+    position: relative;
+    padding: 2rem 0;
+  }
+
+  .journey-timeline::before {
+    content: '';
+    position: absolute;
+    left: 2rem;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: linear-gradient(180deg, #ff6b35 0%, rgba(255, 107, 53, 0.2) 100%);
+  }
+
+  .journey-item {
+    margin-bottom: 2rem;
+    position: relative;
+    padding-left: 5rem;
+  }
+
+  .journey-item::before {
+    content: '';
+    position: absolute;
+    left: 1.2rem;
+    top: 0.5rem;
+    width: 16px;
+    height: 16px;
+    background: #ff6b35;
+    border-radius: 50%;
+    border: 4px solid #0a0a0a;
+  }
+
+  .journey-year {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #ff6b35;
+    margin-bottom: 0.5rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+
+  .journey-story h3 {
+    color: #ffffff;
+    margin-bottom: 0.5rem;
+    font-size: 1.4rem;
+  }
+
+  .journey-story p {
+    color: rgba(255, 255, 255, 0.85);
+    line-height: 1.6;
+    font-size: 1rem;
+  }
+
+  @media (max-width: 768px) {
+    .journey-timeline::before {
+      left: 1rem;
+    }
+    .journey-item {
+      padding-left: 3rem;
+    }
+    .journey-item::before {
+      left: 0.2rem;
+    }
+  }
+</style>

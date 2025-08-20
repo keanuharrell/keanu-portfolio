@@ -1,0 +1,196 @@
+---
+// Blog preview section
+---
+
+<section class="section blog-section" id="blog">
+  <div class="blog-content">
+    <h2 class="blog-title reveal">Thoughts & Stories</h2>
+    <p class="blog-intro reveal">
+      Beyond the code, there are stories worth telling. From firefighting lessons 
+      that apply to debugging, to the human side of building technology.
+    </p>
+    
+    <div class="blog-preview reveal">
+      <div class="coming-soon">Coming Soon</div>
+      <h3>What I'll be writing about</h3>
+      <p>
+        Real stories from the intersection of emergency response and software engineering. 
+        Lessons learned from scaling systems, leading teams, and building products 
+        that actually matter to people.
+      </p>
+      
+      <div class="blog-topics">
+        <span class="blog-topic">Serverless Architecture</span>
+        <span class="blog-topic">Leadership Lessons</span>
+        <span class="blog-topic">From Firefighter to CTO</span>
+        <span class="blog-topic">Building for Impact</span>
+        <span class="blog-topic">International Perspectives</span>
+      </div>
+      
+      <a href="/blog" class="blog-cta">
+        <span>Follow the journey</span>
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M7 17l9.2-9.2M17 17V7H7"/>
+        </svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+<style>
+  /* Blog section */
+  .blog-section {
+    background: rgba(0, 78, 137, 0.03);
+  }
+
+  .blog-content {
+    max-width: 900px;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .blog-title {
+    font-size: clamp(2.5rem, 6vw, 4rem);
+    color: #ffffff;
+    margin-bottom: 2rem;
+  }
+
+  .blog-intro {
+    font-size: 1.4rem;
+    color: rgba(255, 255, 255, 0.8);
+    line-height: 1.7;
+    margin-bottom: 3rem;
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .blog-preview {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
+    padding: 3rem;
+    margin-bottom: 2rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .blog-preview::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(
+      45deg,
+      transparent,
+      rgba(255, 107, 53, 0.05),
+      transparent
+    );
+    transform: rotate(45deg);
+    transition: all 0.6s ease;
+    opacity: 0;
+  }
+
+  .blog-preview:hover::before {
+    opacity: 1;
+    animation: shine 1.5s ease-in-out;
+  }
+
+  .blog-preview:hover {
+    transform: translateY(-5px);
+    border-color: rgba(255, 107, 53, 0.3);
+  }
+
+  .coming-soon {
+    font-size: 1rem;
+    color: #ff6b35;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 1rem;
+  }
+
+  .blog-preview h3 {
+    font-size: 1.8rem;
+    color: #ffffff;
+    margin-bottom: 1rem;
+  }
+
+  .blog-preview p {
+    color: rgba(255, 255, 255, 0.7);
+    line-height: 1.7;
+    margin-bottom: 2rem;
+  }
+
+  .blog-topics {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.8rem;
+    justify-content: center;
+    margin-bottom: 2rem;
+  }
+
+  .blog-topic {
+    padding: 0.5rem 1rem;
+    background: rgba(255, 107, 53, 0.15);
+    border-radius: 25px;
+    font-size: 0.9rem;
+    color: #ff6b35;
+    border: 1px solid rgba(255, 107, 53, 0.3);
+  }
+
+  .blog-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 1rem 2rem;
+    background: transparent;
+    border: 2px solid #ff6b35;
+    color: #ff6b35;
+    text-decoration: none;
+    border-radius: 50px;
+    font-weight: 500;
+    transition: all 0.4s ease;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .blog-cta::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    background: #ff6b35;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    transition: all 0.6s ease;
+    z-index: -1;
+  }
+
+  .blog-cta:hover::before {
+    width: 300px;
+    height: 300px;
+  }
+
+  .blog-cta:hover {
+    color: white;
+    transform: translateY(-2px);
+  }
+
+  @keyframes shine {
+    0% { transform: rotate(45deg) translateX(-100%); }
+    100% { transform: rotate(45deg) translateX(100%); }
+  }
+
+  @media (max-width: 768px) {
+    .blog-topics {
+      justify-content: flex-start;
+    }
+    .blog-preview {
+      padding: 2rem;
+    }
+  }
+</style>

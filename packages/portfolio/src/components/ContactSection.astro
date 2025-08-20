@@ -1,0 +1,125 @@
+---
+// Contact section component
+---
+
+<section class="section contact-section" id="connect">
+  <div class="contact-content">
+    <h2 class="contact-title reveal">Let's Connect</h2>
+    <p class="contact-story reveal">
+      Whether you want to chat about serverless architecture, 
+      share firefighting stories, or collaborate on something amazing - 
+      I'd love to hear from you. The best projects come from real conversations.
+    </p>
+    
+    <div class="contact-links">
+      <a href="mailto:keanuharrell@icloud.com" class="contact-link reveal">
+        <span>📧</span>
+        <span>Email me</span>
+      </a>
+      <a href="https://linkedin.com/in/keanuharrell" class="contact-link reveal">
+        <span>💼</span>
+        <span>LinkedIn</span>
+      </a>
+      <a href="https://github.com/keanuharrell" class="contact-link reveal">
+        <span>🐙</span>
+        <span>GitHub</span>
+      </a>
+    </div>
+    
+    <div class="availability reveal">
+      <span class="availability-dot"></span>
+      <span>Open for new adventures and meaningful projects</span>
+    </div>
+  </div>
+</section>
+
+<style>
+  /* Contact section - more personal */
+  .contact-section {
+    background: linear-gradient(
+      180deg,
+      rgba(10, 10, 10, 1) 0%,
+      rgba(255, 107, 53, 0.08) 50%,
+      rgba(10, 10, 10, 1) 100%
+    );
+  }
+
+  .contact-content {
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  .contact-title {
+    font-size: clamp(2.5rem, 6vw, 4rem);
+    margin-bottom: 2rem;
+    color: #ffffff;
+    position: relative;
+    z-index: 10;
+  }
+
+  .contact-story {
+    font-size: 1.3rem;
+    color: rgba(255, 255, 255, 0.8);
+    line-height: 1.7;
+    margin-bottom: 3rem;
+  }
+
+  .contact-links {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    margin-bottom: 3rem;
+  }
+
+  .contact-link {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    padding: 1.2rem 2rem;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 15px;
+    color: white;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    font-size: 1.1rem;
+  }
+
+  .contact-link:hover {
+    background: rgba(255, 107, 53, 0.1);
+    border-color: #ff6b35;
+    transform: translateY(-3px);
+  }
+
+  .availability {
+    display: inline-flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem 2rem;
+    background: rgba(255, 107, 53, 0.1);
+    border-radius: 50px;
+    font-size: 1rem;
+    border: 1px solid rgba(255, 107, 53, 0.3);
+  }
+
+  .availability-dot {
+    width: 10px;
+    height: 10px;
+    background: #10b981;
+    border-radius: 50%;
+    animation: pulse 2s infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.7; transform: scale(1.1); }
+  }
+
+  @media (max-width: 768px) {
+    .contact-links { 
+      flex-direction: column;
+      align-items: center;
+    }
+  }
+</style>
