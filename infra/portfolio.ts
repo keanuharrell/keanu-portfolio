@@ -4,8 +4,8 @@ import { email } from "./email";
 export const portfolio = new sst.aws.Astro("Portfolio", {
   path: "packages/portfolio",
   domain: {
-    name: `www.${domain}`,
-    redirects: [domain],
+    name: domain,
+    redirects: [`www.${domain}`],
     dns: sst.cloudflare.dns(),
   },
   link: [email],
