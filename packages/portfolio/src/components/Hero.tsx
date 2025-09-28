@@ -3,8 +3,8 @@ import { portfolioData } from '../data/portfolio';
 
 export const Hero: React.FC = () => {
   return (
-    <section className="min-h-[80vh] flex items-center">
-      <div className="container-width">
+    <section className="min-h-screen flex items-center justify-center">
+      <div className="container-width text-center">
         <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold mb-8">
           {portfolioData.personal.name}
         </h1>
@@ -13,11 +13,11 @@ export const Hero: React.FC = () => {
           {portfolioData.personal.title}
         </p>
 
-        <p className="text-lg text-neutral-500 max-w-2xl">
+        <p className="text-lg text-neutral-500 max-w-2xl mx-auto mb-12">
           {portfolioData.personal.bio}
         </p>
 
-        <div className="mt-12 flex flex-wrap gap-6 text-sm">
+        <div className="flex flex-wrap justify-center gap-6 text-sm">
           <a
             href={`mailto:${portfolioData.personal.email}`}
             className="text-neutral-600 hover:text-neutral-900 underline underline-offset-4"

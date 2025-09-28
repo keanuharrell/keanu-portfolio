@@ -1,23 +1,19 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import '../styles/global.css';
-import { Navigation } from '../components/Navigation';
 import { Hero } from '../components/Hero';
 import { Experience } from '../components/Experience';
 import { Projects } from '../components/Projects';
 import { Skills } from '../components/Skills';
 import { Contact } from '../components/Contact';
-import { Footer } from '../components/Footer';
 ---
 
 <Layout title="Keanu Harrell">
-  <Navigation client:load />
-  <main className="pt-16">
+  <main>
     <Hero client:load />
     <Experience client:visible />
     <Projects client:visible />
     <Skills client:visible />
     <Contact client:visible />
   </main>
-  <Footer client:load />
 </Layout>
