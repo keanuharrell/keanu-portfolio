@@ -5,15 +5,6 @@
 
 declare module "sst" {
   export interface Resource {
-    "Email": {
-      "configSet": string
-      "sender": string
-      "type": "sst.aws.Email"
-    }
-    "Portfolio": {
-      "type": "sst.aws.Astro"
-      "url": string
-    }
   }
 }
 /// <reference path="sst-env.d.ts" />
