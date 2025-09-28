@@ -1,123 +1,23 @@
 ---
-import BaseHead from '../components/BaseHead.astro';
-import Hero from '../components/Hero.astro';
-import ValuesSection from '../components/ValuesSection.astro';
-import JourneySection from '../components/JourneySection.astro';
-import BlogSection from '../components/BlogSection.astro';
-import ContactSection from '../components/ContactSection.astro';
-import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
-import '../styles/global-modern.css';
+import Layout from '../layouts/Layout.astro';
+import '../styles/global.css';
+import { Navigation } from '../components/Navigation';
+import { Hero } from '../components/Hero';
+import { Experience } from '../components/Experience';
+import { Projects } from '../components/Projects';
+import { Skills } from '../components/Skills';
+import { Contact } from '../components/Contact';
+import { Footer } from '../components/Footer';
 ---
 
-<!doctype html>
-<html lang="en">
-<head>
-  <BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
-</head>
-
-<body>
-  <!-- Background layers -->
-  <div class="bg-layer bg-gradient"></div>
-  <div class="bg-layer floating-shapes">
-    <div class="shape shape-1"></div>
-    <div class="shape shape-2"></div>
-    <div class="shape shape-3"></div>
-  </div>
-
-  <!-- Navigation -->
-  <nav class="nav-dots">
-    <div class="nav-dot active" data-label="Hi" data-section="0"></div>
-    <div class="nav-dot" data-label="Values" data-section="1"></div>
-    <div class="nav-dot" data-label="Journey" data-section="2"></div>
-    <div class="nav-dot" data-label="Blog" data-section="3"></div>
-    <div class="nav-dot" data-label="Connect" data-section="4"></div>
-  </nav>
-
-  <div class="scroll-container">
-    <div class="content-wrapper">
-      <Hero />
-      <ValuesSection />
-      <JourneySection />
-      <BlogSection />
-      <ContactSection />
-    </div>
-  </div>
-
-  <script>
-    // Enhanced parallax with smoother animations
-    let scrollContainer = document.querySelector('.scroll-container');
-    let shapes = document.querySelectorAll('.shape');
-    
-    function updateParallax() {
-      let scrollTop = scrollContainer.scrollTop;
-      let scrollHeight = scrollContainer.scrollHeight - window.innerHeight;
-      let scrollPercent = scrollTop / scrollHeight;
-      
-      shapes.forEach((shape, index) => {
-        let speed = (index + 1) * 0.3; // Gentler movement
-        let yPos = scrollPercent * 150 * speed;
-        let rotation = scrollPercent * 180 * (index + 1);
-        shape.style.transform = `translateY(${yPos}px) rotate(${rotation}deg)`;
-      });
-    }
-    
-    scrollContainer.addEventListener('scroll', updateParallax);
-    
-    // Intersection Observer for reveals
-    const reveals = document.querySelectorAll('.reveal');
-    const revealObserver = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('active');
-        }
-      });
-    }, { threshold: 0.2 });
-    
-    reveals.forEach(reveal => revealObserver.observe(reveal));
-    
-    // Navigation dots
-    const sections = document.querySelectorAll('.section');
-    const navDots = document.querySelectorAll('.nav-dot');
-    
-    const sectionObserver = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          const index = Array.from(sections).indexOf(entry.target);
-          navDots.forEach((dot, i) => {
-            dot.classList.toggle('active', i === index);
-          });
-        }
-      });
-    }, { threshold: 0.5 });
-    
-    sections.forEach(section => sectionObserver.observe(section));
-    
-    // Click navigation
-    navDots.forEach((dot, index) => {
-      dot.addEventListener('click', () => {
-        sections[index].scrollIntoView({ behavior: 'smooth' });
-      });
-    });
-    
-    // Staggered animations for cards
-    function animateCards() {
-      const cards = document.querySelectorAll('.value-card, .project-card');
-      cards.forEach((card, index) => {
-        const rect = card.getBoundingClientRect();
-        const isVisible = rect.top < window.innerHeight && rect.bottom > 0;
-        
-        if (isVisible && !card.classList.contains('animated')) {
-          setTimeout(() => {
-            card.style.transform = 'translateY(0) scale(1)';
-            card.style.opacity = '1';
-            card.classList.add('animated');
-          }, index * 150);
-        }
-      });
-    }
-    
-    scrollContainer.addEventListener('scroll', animateCards);
-    setTimeout(animateCards, 100);
-  </script>
-</body>
-</html>
+<Layout title="Keanu Harrell">
+  <Navigation client:load />
+  <main className="pt-16">
+    <Hero client:load />
+    <Experience client:visible />
+    <Projects client:visible />
+    <Skills client:visible />
+    <Contact client:visible />
+  </main>
+  <Footer client:load />
+</Layout>
