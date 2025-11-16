@@ -1,10 +1,6 @@
 import { domain } from "./dns";
 
-export const portfolio = new sst.aws.StaticSite("Portfolio", {
-  build: {
-    command: "bun run build",
-    output: "dist",
-  },
+export const portfolio = new sst.aws.Astro("Portfolio", {
   path: "packages/portfolio",
   domain: {
     name: domain,
