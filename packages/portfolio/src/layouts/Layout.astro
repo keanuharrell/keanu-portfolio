@@ -1,4 +1,6 @@
 ---
+import { ThemeProvider } from '../components/ThemeProvider';
+
 interface Props {
   title: string;
   description?: string;
@@ -8,7 +10,7 @@ const { title, description = "Cloud & Platform Engineer" } = Astro.props;
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang="en" suppressHydrationWarning>
   <head>
     <meta charset="UTF-8" />
     <meta name="description" content={description} />
@@ -27,8 +29,28 @@ const { title, description = "Cloud & Platform Engineer" } = Astro.props;
     <meta name="twitter:description" content={description} />
 
     <title>{title}</title>
+    <script is:inline>
+      // Prevent flash of unstyled content
+      const theme = (() => {
+        if (typeof localStorage !== 'undefined' && localStorage.getItem('theme')) {
+          return localStorage.getItem('theme');
+        }
+        if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+          return 'dark';
+        }
+        return 'light';
+      })();
+
+      if (theme === 'dark') {
+        document.documentElement.classList.add('dark');
+      } else {
+        document.documentElement.classList.remove('dark');
+      }
+    </script>
   </head>
   <body>
-    <slot />
+    <ThemeProvider client:load attribute="class" defaultTheme="system" enableSystem>
+      <slot />
+    </ThemeProvider>
   </body>
 </html>

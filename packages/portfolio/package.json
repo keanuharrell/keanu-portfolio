@@ -9,18 +9,21 @@
     "astro": "astro"
   },
   "dependencies": {
-    "@astrojs/react": "^4.3.1",
+    "@astrojs/react": "4.4.2",
     "@astrojs/tailwind": "^6.0.2",
+    "@radix-ui/react-slot": "^1.2.4",
     "@types/react": "^19.1.13",
     "@types/react-dom": "^19.1.9",
-    "astro": "^5.13.9",
+    "astro": "5.15.8",
     "astro-sst": "^3.1.4",
+    "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "gsap": "^3.13.0",
     "lucide-react": "^0.544.0",
+    "next-themes": "^0.4.6",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
     "tailwind": "^4.0.0",
-    "tailwind-merge": "^3.3.1"
+    "tailwind-merge": "^3.4.0"
   }
 }

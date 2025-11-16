@@ -9,6 +9,8 @@ export const portfolio = new sst.aws.StaticSite("Portfolio", {
   domain: {
     name: domain,
     redirects: [`www.${domain}`],
-    dns: sst.cloudflare.dns(),
+    dns: sst.cloudflare.dns({
+      proxy: true,
+    }),
   },
 });
