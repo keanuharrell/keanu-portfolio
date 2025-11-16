@@ -41,49 +41,71 @@ export const Experience: React.FC = () => {
       <div className="container-width">
         <h2 className="text-3xl md:text-4xl font-bold mb-16">Experience</h2>
 
-        {/* Availability Banner */}
-        {!hasCurrentPosition && availability.isAvailable && (
-          <Card className="mb-12 bg-gradient-to-r from-primary to-primary/90 border-none text-primary-foreground shadow-lg">
-            <div className="p-8 flex items-start gap-4">
-              <div className="p-3 bg-primary-foreground/10 rounded-lg">
-                <Sparkles className="w-6 h-6" />
-              </div>
-              <div className="flex-1">
-                <h3 className="text-xl font-semibold mb-2 flex items-center gap-2">
-                  {availability.message}
-                  <Badge variant="success" className="gap-1.5">
-                    <span className="w-1.5 h-1.5 bg-white rounded-full animate-pulse" />
-                    Available
-                  </Badge>
-                </h3>
-                <p className="text-primary-foreground/80 text-sm mb-4">
-                  Looking for challenging DevOps, Platform Engineering, or Cloud
-                  Architecture roles. Specialized in AWS, Kubernetes, and
-                  infrastructure automation.
-                </p>
-                <Button
-                  asChild
-                  variant="secondary"
-                  size="sm"
-                  className="bg-primary-foreground text-primary hover:bg-primary-foreground/90"
-                >
-                  <a
-                    href={`mailto:${portfolioData.personal.email}?subject=Let's work together`}
-                  >
-                    <Mail className="w-4 h-4" />
-                    Hire me
-                  </a>
-                </Button>
-              </div>
-            </div>
-          </Card>
-        )}
-
         <div className="relative pl-8 md:pl-0">
           {/* Timeline line - hidden on mobile, visible on desktop */}
           <div className="hidden md:block absolute left-[232px] top-0 bottom-0 w-px bg-border" />
 
           <div className="space-y-12">
+            {/* Availability Entry */}
+            {!hasCurrentPosition && availability.isAvailable && (
+              <div className="relative opacity-100 translate-x-0">
+                {/* Timeline dot - special animated dot */}
+                <div className="absolute -left-8 md:left-[232px] md:-translate-x-1/2 mt-1.5">
+                  <div className="relative">
+                    <div className="w-3 h-3 rounded-full bg-green-600 border-2 border-green-600 animate-pulse" />
+                    <div className="absolute inset-0 w-3 h-3 rounded-full bg-green-600 opacity-25 animate-ping" />
+                  </div>
+                </div>
+
+                <div className="md:grid md:grid-cols-[220px_1fr] md:gap-12">
+                  {/* Left column - Date & Location */}
+                  <div className="mb-4 md:mb-0 space-y-2 md:pr-8">
+                    <Badge variant="success" className="gap-1.5">
+                      <Sparkles className="w-3 h-3" />
+                      Available Now
+                    </Badge>
+                  </div>
+
+                  {/* Right column - Content */}
+                  <Card className="p-6 border-2 border-green-600/20 bg-green-50/50 dark:bg-green-950/10">
+                    <div className="flex items-start gap-3 mb-4">
+                      <div className="p-2 bg-green-600/10 rounded-lg">
+                        <Sparkles className="w-5 h-5 text-green-600" />
+                      </div>
+                      <div className="flex-1">
+                        <h3 className="text-lg font-semibold mb-1">
+                          {availability.message}
+                        </h3>
+                        <p className="text-muted-foreground text-sm">
+                          Looking for my next challenge
+                        </p>
+                      </div>
+                    </div>
+
+                    <p className="text-muted-foreground text-sm mb-4 leading-relaxed">
+                      Seeking challenging DevOps, Platform Engineering, or Cloud
+                      Architecture roles. Specialized in AWS, Kubernetes, and
+                      infrastructure automation.
+                    </p>
+
+                    <Button
+                      asChild
+                      variant="default"
+                      size="sm"
+                      className="bg-green-600 hover:bg-green-700 text-white"
+                    >
+                      <a
+                        href={`mailto:${portfolioData.personal.email}?subject=Let's work together`}
+                      >
+                        <Mail className="w-4 h-4" />
+                        Get in touch
+                      </a>
+                    </Button>
+                  </Card>
+                </div>
+              </div>
+            )}
+
             {portfolioData.experience.map((exp, index) => (
               <div
                 key={exp.id}

@@ -6,7 +6,7 @@
 declare module "sst" {
   export interface Resource {
     "Portfolio": {
-      "type": "sst.aws.StaticSite"
+      "type": "sst.aws.Astro"
       "url": string
     }
   }
