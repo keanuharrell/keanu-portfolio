@@ -1,0 +1,18 @@
+{
+  "name": "@keanuharrell/functions",
+  "version": "0.0.1",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "typecheck": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "@types/aws-lambda": "^8.10.150",
+    "typescript": "^5.8.3"
+  },
+  "dependencies": {
+    "@neondatabase/serverless": "^1.0.2",
+    "drizzle-orm": "^0.44.7",
+    "sst": "*"
+  }
+}

@@ -14,11 +14,13 @@ export default $config({
         cloudflare: {
           version: "6.3.1",
         },
+        neon: "0.9.0",
+        "@upstash/pulumi": "0.5.0",
       },
     };
   },
   async run() {
-    await import("./infra/dns");
-    await import("./infra/portfolio");
+    (await import("./infra/common")).startCommon();
+    (await import("./infra/main")).startMain();
   },
 });

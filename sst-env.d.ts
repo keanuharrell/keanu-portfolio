@@ -5,8 +5,42 @@
 
 declare module "sst" {
   export interface Resource {
+    "BetterAuthSecret": {
+      "type": "sst.sst.Secret"
+      "value": string
+    }
+    "Email": {
+      "configSet": string
+      "sender": string
+      "type": "sst.aws.Email"
+    }
+    "GoogleClientId": {
+      "type": "sst.sst.Secret"
+      "value": string
+    }
+    "GoogleClientSecret": {
+      "type": "sst.sst.Secret"
+      "value": string
+    }
+    "NeonDatabaseUrl": {
+      "type": "sst.sst.Linkable"
+      "url": string
+    }
+    "NeonPassword": {
+      "type": "sst.sst.Secret"
+      "value": string
+    }
+    "NeonProjectId": {
+      "type": "sst.sst.Secret"
+      "value": string
+    }
     "Portfolio": {
       "type": "sst.aws.Astro"
+      "url": string
+    }
+    "RedisLink": {
+      "token": string
+      "type": "sst.sst.Linkable"
       "url": string
     }
   }
